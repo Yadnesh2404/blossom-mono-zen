@@ -1,0 +1,138 @@
+import { motion } from "framer-motion";
+import heroHair from "@/assets/hero-hair.jpg";
+
+const services = [
+  { 
+    name: "Precision Haircut", 
+    description: "Expert cutting techniques for any style or length",
+    for: "Men / Women / Both"
+  },
+  { 
+    name: "Hair Coloring", 
+    description: "From subtle highlights to bold transformations",
+    for: "Women / Men",
+    products: "Premium color brands"
+  },
+  { 
+    name: "Styling & Blowouts", 
+    description: "Red carpet-ready styles for any occasion",
+    for: "Women / Men"
+  },
+  { 
+    name: "Hair Treatments", 
+    description: "Deep conditioning and keratin treatments for healthy, shiny hair",
+    for: "Both",
+    products: "Professional treatment lines"
+  },
+  { 
+    name: "Beard Trim & Grooming", 
+    description: "Precision grooming for the modern gentleman",
+    for: "Men"
+  },
+];
+
+const Hair = () => {
+  return (
+    <div>
+      {/* Hero Section */}
+      <section className="relative h-[50vh] overflow-hidden">
+        <img
+          src={heroHair}
+          alt="Hair Services"
+          className="w-full h-full object-cover grayscale"
+        />
+        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-7xl font-heading font-bold text-background"
+          >
+            HAIR ARTISTRY
+          </motion.h1>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
+              TRANSFORM YOUR LOOK
+            </h2>
+            <p className="text-lg leading-relaxed max-w-3xl mx-auto font-light">
+              Our hair specialists combine technical mastery with artistic vision 
+              to create styles that complement your features and lifestyle.
+            </p>
+          </motion.div>
+
+          <div className="space-y-12">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="border-b border-foreground pb-12 last:border-b-0"
+              >
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-heading font-bold mb-3">
+                      {service.name}
+                    </h3>
+                    <p className="text-base leading-relaxed mb-2 font-light">
+                      {service.description}
+                    </p>
+                    {service.products && (
+                      <p className="text-sm opacity-60 italic">
+                        Using {service.products}
+                      </p>
+                    )}
+                  </div>
+                  <div className="md:text-right">
+                    <span className="text-sm font-medium uppercase tracking-wider">
+                      {service.for}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 px-4 bg-muted">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-heading font-bold mb-6"
+          >
+            READY FOR YOUR TRANSFORMATION?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-lg leading-relaxed mb-8 font-light"
+          >
+            Book your appointment today and experience the Blossom difference.
+          </motion.p>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Hair;
