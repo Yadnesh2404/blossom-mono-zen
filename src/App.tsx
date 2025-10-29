@@ -6,12 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import Hair from "./pages/Services/Hair";
 import Nails from "./pages/Services/Nails";
 import Makeup from "./pages/Services/Makeup";
-import Testimonials from "./pages/Testimonials";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,12 +24,9 @@ const App = () => (
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
               <Route path="/services/hair" element={<Hair />} />
               <Route path="/services/nails" element={<Nails />} />
               <Route path="/services/makeup" element={<Makeup />} />
-              <Route path="/testimonials" element={<Testimonials />} />
-              <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

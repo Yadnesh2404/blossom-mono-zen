@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const handleNavClick = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.location.href = `/#${sectionId}`;
+    }
+  };
+
   return (
     <footer className="bg-foreground text-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -52,6 +61,14 @@ const Footer = () => {
               <li>City, State 12345</li>
               <li className="pt-2">Phone: (555) 123-4567</li>
               <li>Email: hello@blossomsalon.com</li>
+              <li className="pt-2">
+                <button 
+                  onClick={() => handleNavClick("contact")}
+                  className="hover:underline"
+                >
+                  Get in Touch
+                </button>
+              </li>
             </ul>
           </div>
         </div>

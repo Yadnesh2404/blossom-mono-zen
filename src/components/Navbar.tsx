@@ -8,20 +8,29 @@ const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path;
-
-  const navLinks = [
-    { name: "HOME", path: "/" },
-    { name: "ABOUT", path: "/about" },
-    { name: "TESTIMONIALS", path: "/testimonials" },
-    { name: "CONTACT", path: "/contact" },
-  ];
+  const isHome = location.pathname === "/";
 
   const serviceLinks = [
     { name: "HAIR", path: "/services/hair" },
     { name: "NAILS", path: "/services/nails" },
     { name: "MAKEUP", path: "/services/makeup" },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setIsOpen(false);
+    }
+  };
+
+  const handleNavClick = (sectionId: string) => {
+    if (!isHome) {
+      window.location.href = `/#${sectionId}`;
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-foreground">
@@ -36,17 +45,12 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`link-underline text-sm font-medium transition-opacity ${
-                  isActive(link.path) ? "opacity-100" : "opacity-60 hover:opacity-100"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+            <button
+              onClick={() => handleNavClick("about")}
+              className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
+            >
+              ABOUT
+            </button>
             
             {/* Services Dropdown */}
             <div
@@ -81,6 +85,20 @@ const Navbar = () => {
                 )}
               </AnimatePresence>
             </div>
+
+            <button
+              onClick={() => handleNavClick("testimonials")}
+              className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
+            >
+              TESTIMONIALS
+            </button>
+
+            <button
+              onClick={() => handleNavClick("contact")}
+              className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
+            >
+              CONTACT
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -104,18 +122,12 @@ const Navbar = () => {
               className="md:hidden overflow-hidden border-t border-foreground"
             >
               <div className="py-4 space-y-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-2 text-sm font-medium ${
-                      isActive(link.path) ? "bg-foreground text-background" : ""
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+                <button
+                  onClick={() => handleNavClick("about")}
+                  className="block w-full text-left px-4 py-2 text-sm font-medium"
+                >
+                  ABOUT
+                </button>
                 
                 <div className="px-4 py-2">
                   <p className="text-sm font-medium mb-2">SERVICES</p>
@@ -130,6 +142,20 @@ const Navbar = () => {
                     </Link>
                   ))}
                 </div>
+
+                <button
+                  onClick={() => handleNavClick("testimonials")}
+                  className="block w-full text-left px-4 py-2 text-sm font-medium"
+                >
+                  TESTIMONIALS
+                </button>
+
+                <button
+                  onClick={() => handleNavClick("contact")}
+                  className="block w-full text-left px-4 py-2 text-sm font-medium"
+                >
+                  CONTACT
+                </button>
               </div>
             </motion.div>
           )}
