@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Hair from "./pages/Services/Hair";
 import Nails from "./pages/Services/Nails";
 import Makeup from "./pages/Services/Makeup";
+import Skin from "./pages/Services/Skin";
+import Spa from "./pages/Services/Spa";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,8 +27,10 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services/hair" element={<Hair />} />
+              <Route path="/services/skin" element={<Skin />} />
               <Route path="/services/nails" element={<Nails />} />
               <Route path="/services/makeup" element={<Makeup />} />
+              <Route path="/services/spa" element={<Spa />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

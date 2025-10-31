@@ -1,53 +1,74 @@
-# Welcome to your Lovable project
+# Blossom Salon - Premium Beauty Services
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/0ebf9b85-b2da-41c6-944e-a06a4bec6655
+Blossom Salon is a premium beauty destination offering expert hair styling, nail care, makeup, and spa services. This modern, responsive website showcases our services, team, and booking options in an elegant and user-friendly interface.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Responsive design for all devices
+- Service pages for Hair, Nails, Makeup, and Spa
+- Interactive hero carousel
+- Online booking system
+- Contact form
+- Social media integration
 
-**Use Lovable**
+## Technologies Used
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0ebf9b85-b2da-41c6-944e-a06a4bec6655) and start prompting.
+- React with TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion for animations
+- React Router for navigation
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v16 or later)
+- npm or yarn
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
+   cd blossom-salon
+   ```
+
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Building for Production
+
+To create a production build:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+The build artifacts will be stored in the `dist/` directory.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Deployment
 
-**Use GitHub Codespaces**
+This project is ready to be deployed on any static hosting service like Vercel, Netlify, or GitHub Pages.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
 ## What technologies are used for this project?

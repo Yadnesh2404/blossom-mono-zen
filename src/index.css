@@ -57,10 +57,21 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  body {
+  html, body {
     @apply bg-background text-foreground font-body antialiased;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Prevent horizontal scroll on all elements */
+  * {
+    max-width: 100%;
   }
   
   h1, h2, h3, h4, h5, h6 {

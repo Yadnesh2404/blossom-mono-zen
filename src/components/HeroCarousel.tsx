@@ -2,41 +2,147 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroHair from "@/assets/hero-hair.jpg";
-import heroNails from "@/assets/hero-nails.jpg";
-import heroMakeup from "@/assets/hero-makeup.jpg";
+
+// High-quality color images from Pexels (free to use)
+const hairImage = '/images/hero/hair.jpg';
+const nailsImage = '/images/hero/nails.jpg';
+const makeupImage = '/images/hero/makeup.jpg';
+const skinImage = '/images/hero/skin.jpg';
+const spaImage = '/images/hero/spa.jpg';
 
 const slides = [
   {
-    image: heroHair,
+    image: hairImage,
     title: "HAIR ARTISTRY",
     description: "Precision cuts and stunning styles",
     link: "/services/hair",
+    overlay: "rgba(0, 0, 0, 0.4)",
+    textColor: "text-white"
   },
   {
-    image: heroNails,
+    image: skinImage,
+    title: "SKIN SOLUTIONS",
+    description: "Rejuvenating treatments for glowing skin",
+    link: "/services/skin",
+    overlay: "rgba(0, 0, 0, 0.45)",
+    textColor: "text-white"
+  },
+  {
+    image: nailsImage,
     title: "NAIL PERFECTION",
     description: "Elegant manicures and pedicures",
     link: "/services/nails",
+    overlay: "rgba(0, 0, 0, 0.45)",
+    textColor: "text-white"
   },
   {
-    image: heroMakeup,
+    image: makeupImage,
     title: "MAKEUP EXCELLENCE",
     description: "Flawless beauty, expertly crafted",
     link: "/services/makeup",
+    overlay: "rgba(0, 0, 0, 0.4)",
+    textColor: "text-white"
+  },
+  {
+    image: spaImage,
+    title: "SPA",
+    description: "Ultimate relaxation and rejuvenation",
+    link: "/services/spa",
+    overlay: "rgba(0, 0, 0, 0.4)",
+    textColor: "text-white"
   },
 ];
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const slide = slides[currentSlide];
+  const nextSlide = slides[(currentSlide + 1) % slides.length];
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
+  // Preload next image
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    const preloadImage = (src: string) => {
+      const img = new Image();
+      img.src = src;
+    };
+    
+    if (!isLoading) {
+      preloadImage(nextSlide.image);
+    }
+  }, [currentSlide, isLoading, nextSlide.image]);
 
-    return () => clearInterval(timer);
+  // Handle initial image load
+  useEffect(() => {
+    const img = new Image();
+    img.src = slide.image;
+    img.onload = () => setIsLoading(false);
+    return () => {
+      img.onload = null;
+    };
+  }, [slide.image]);
+
+  // Auto-advance slides with requestAnimationFrame for better performance
+  useEffect(() => {
+    if (isLoading) return;
+    
+    let frameId: number;
+    let startTime: number | null = null;
+    const delay = 5000; // 5 seconds
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      
+      if (elapsed >= delay && !isHovered) {
+        setCurrentSlide(prev => (prev + 1) % slides.length);
+        startTime = null;
+      }
+      
+      frameId = requestAnimationFrame(animate);
+    };
+    
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, [isHovered, currentSlide, isLoading]); // Added currentSlide to dependencies to reset timer on slide change
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        goToNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Swipe support for touch devices
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swipe left
+      goToNext();
+    }
+    if (touchStart - touchEnd < -50) {
+      // Swipe right
+      goToPrevious();
+    }
+  };
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -51,83 +157,120 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className="relative h-[70vh] md:h-[80vh] w-full overflow-hidden bg-foreground">
-      <AnimatePresence mode="wait">
+    <div 
+      className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] w-screen max-w-full overflow-hidden bg-foreground"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      role="region"
+      aria-label="Hero carousel"
+      aria-roledescription="carousel"
+      aria-live="polite"
+      style={{ marginLeft: 'calc((100% - 100vw) / 2)' }} // Fix for horizontal scroll
+    >
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.7 }}
-          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            transition: { 
+              opacity: { duration: 0.7, ease: [0.4, 0, 0.2, 1] },
+              scale: { duration: 1, ease: [0.4, 0, 0.2, 1] }
+            }
+          }}
+          exit={{ 
+            opacity: 0,
+            transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+          }}
+          className="absolute inset-0 will-change-transform"
         >
-          <Link to={slides[currentSlide].link} className="block h-full w-full">
-            <div className="relative h-full w-full">
-              <img
-                src={slides[currentSlide].image}
-                alt={slides[currentSlide].title}
-                className="h-full w-full object-cover grayscale"
-              />
-              
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-foreground/20" />
-              
-              {/* Content */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-background px-4">
-                  <motion.h2
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                    className="text-5xl md:text-7xl font-heading font-bold mb-4"
+          <div 
+            className="w-full h-full bg-cover bg-center will-change-transform"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${slide.overlay}, ${slide.overlay}), url(${slide.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed',
+              imageRendering: '-webkit-optimize-contrast',
+              backfaceVisibility: 'hidden',
+              transform: 'translate3d(0,0,0)',
+              willChange: 'transform, opacity'
+            }}
+            aria-hidden="true"
+          >
+            <div className="absolute inset-0 flex items-center justify-center md:justify-start">
+              <motion.div
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+                className="px-6 sm:px-8 md:px-12 lg:px-16 max-w-3xl w-full"
+              >
+                <motion.h1 
+                  className={`text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 font-heading tracking-tight ${slide.textColor} text-center md:text-left`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  aria-live="polite"
+                >
+                  {slide.title}
+                </motion.h1>
+                <motion.p 
+                  className={`text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl ${slide.textColor} font-light leading-relaxed text-center md:text-left`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 0.9, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                >
+                  {slide.description}
+                </motion.p>
+                <motion.div
+                  className="text-center md:text-left"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                >
+                  <Link
+                    to={slide.link}
+                    className="inline-block bg-transparent border-2 border-white text-white hover:bg-white hover:text-foreground px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105 transform min-h-[44px] flex items-center"
+                    aria-label={`Discover more about ${slide.title}`}
                   >
-                    {slides[currentSlide].title}
-                  </motion.h2>
-                  <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-lg md:text-xl font-light tracking-wide"
-                  >
-                    {slides[currentSlide].description}
-                  </motion.p>
-                </div>
-              </div>
+                    Discover More
+                  </Link>
+                </motion.div>
+              </motion.div>
             </div>
-          </Link>
+          </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={goToPrevious}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-2 bg-background/10 hover:bg-background/20 backdrop-blur-sm border border-background/50 transition-all z-10"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6 text-background" />
-      </button>
-
-      <button
-        onClick={goToNext}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-2 bg-background/10 hover:bg-background/20 backdrop-blur-sm border border-background/50 transition-all z-10"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6 text-background" />
-      </button>
-
       {/* Dots Navigation */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`h-2 transition-all ${
-              currentSlide === index ? "w-8 bg-background" : "w-2 bg-background/50"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+        {slides.map((_, index) => {
+          const isActive = index === currentSlide;
+          return (
+            <button
+              key={index}
+              onClick={() => !isActive && goToSlide(index)}
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-white ${
+                isActive ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
+              }`}
+              aria-label={`Go to slide ${index + 1} of ${slides.length}`}
+              aria-current={isActive ? 'true' : 'false'}
+            />
+          );
+        })}
       </div>
+
+      {/* Mobile swipe indicator */}
+      {isMobile && (
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-white/60 text-xs z-10">
+          
+        </div>
+      )}
     </div>
   );
 };
