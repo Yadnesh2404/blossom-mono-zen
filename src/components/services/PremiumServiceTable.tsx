@@ -14,6 +14,7 @@ interface ServiceItem {
   men: string | boolean;
   women: string | boolean;
   kids: string | boolean;
+  price?: string;
   description?: string;
   products?: Product[];
 }
@@ -29,7 +30,7 @@ interface PremiumServiceTableProps {
 }
 const renderAvailability = (value: string | boolean) => {
   if (value === false) return <span className="text-foreground/40">—</span>;
-  if (value === true) return <Check className="w-5 h-5 text-foreground/90 mx-auto" />;
+  if (value === true) return <Check className="w-5 h-5 text-brand-gold mx-auto" />;
   return <span className="text-foreground/90">{value}</span>;
 };
 
@@ -37,7 +38,7 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
   return (
     <div className="w-full space-y-12">
       {categories.map((category, catIndex) => (
-        <motion.div 
+        <motion.div
           key={catIndex}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,10 +46,11 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
           transition={{ duration: 0.5, delay: catIndex * 0.1 }}
           className="space-y-6"
         >
-          <h3 className="text-xl md:text-2xl font-heading font-bold tracking-wide text-foreground/90 uppercase">
+          <h3 className="text-xl md:text-2xl font-heading font-bold tracking-wide text-foreground/90 uppercase flex items-center gap-3">
+            <span className="w-8 h-[2px] bg-brand-gold hidden md:inline-block"></span>
             {category.title}
           </h3>
-          
+
           <div className="overflow-hidden rounded-xl border border-foreground/5 bg-background shadow-sm hover:shadow-md transition-shadow duration-300">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[600px] md:min-w-0">
@@ -56,6 +58,9 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
                   <tr className="bg-foreground text-background/95">
                     <th className="py-3 px-4 md:py-4 md:px-6 text-left font-heading font-bold text-xs md:text-sm uppercase tracking-wider">
                       SERVICE / TREATMENT
+                    </th>
+                    <th className="py-3 px-2 md:py-4 md:px-4 text-center font-heading font-bold text-xs md:text-sm uppercase tracking-wider w-20 md:w-28">
+                      PRICE (₹)
                     </th>
                     <th className="py-3 px-2 md:py-4 md:px-4 text-center font-heading font-bold text-xs md:text-sm uppercase tracking-wider w-16 md:w-24">
                       MEN
@@ -78,7 +83,7 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
                 </thead>
                 <tbody className="divide-y divide-foreground/5">
                   {category.services.map((service, index) => (
-                    <tr 
+                    <tr
                       key={index}
                       className="group hover:bg-foreground/3 transition-colors duration-200 border-b border-foreground/5 last:border-0"
                     >
@@ -90,6 +95,13 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
                           <p className="text-xs md:text-sm text-foreground/60 mt-1 line-clamp-2">
                             {service.description}
                           </p>
+                        )}
+                      </td>
+                      <td className="py-3 px-2 md:py-5 md:px-4 text-center">
+                        {service.price ? (
+                          <span className="text-foreground/90 font-medium text-sm md:text-base">{service.price}</span>
+                        ) : (
+                          <span className="text-foreground/40">—</span>
                         )}
                       </td>
                       <td className="py-3 px-2 md:py-5 md:px-4 text-center">
@@ -125,13 +137,13 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
                                       </span>
                                     </div>
                                   </TooltipTrigger>
-                                  <TooltipContent 
+                                  <TooltipContent
                                     className="bg-background/95 backdrop-blur-sm border border-foreground/10 shadow-lg p-4 max-w-[280px]"
                                     sideOffset={5}
                                   >
                                     <div className="space-y-2">
                                       <div className="flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-foreground/70"></div>
+                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-gold"></div>
                                         <p className="font-medium text-foreground/90">{product.brand}</p>
                                       </div>
                                       {product.description && (
@@ -160,7 +172,10 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
 
           {showBookButton && (
             <div className="flex justify-end">
-              <button className="mt-4 border border-foreground/30 hover:bg-foreground hover:text-background px-4 py-2 text-xs sm:text-sm font-medium tracking-wider uppercase transition-all duration-300 w-full sm:w-auto text-center">
+              <button
+                onClick={() => { window.location.href = '/#contact'; }}
+                className="mt-4 border border-foreground/30 hover:bg-brand-rose hover:border-brand-rose hover:text-white px-4 py-2 text-xs sm:text-sm font-medium tracking-wider uppercase transition-all duration-300 w-full sm:w-auto text-center"
+              >
                 Book Appointment
               </button>
             </div>

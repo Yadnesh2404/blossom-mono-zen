@@ -1,158 +1,278 @@
 import { motion } from "framer-motion";
-// High-quality hair service image from Pexels
-const heroHair = 'https://images.pexels.com/photos/3993313/pexels-photo-3993313.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
+import { useNavigate } from "react-router-dom";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
+import ServiceHero from "@/components/services/ServiceHero";
+import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
 
 const hairServices = [
   {
-    title: "Haircuts & Styling",
+    title: "Hair Services — Men",
     services: [
       {
-        name: "Classic Haircut",
-        description: "Precision cut to suit your face shape and lifestyle",
-        men: true,
-        women: true,
-        kids: true,
-        products: [
-          { name: "Scissors & Clippers", brand: "Hattori Hanzo", description: "Professional-grade cutting tools for precision" },
-          { name: "Shampoo", brand: "Kerastase", description: "Gentle cleansing for all hair types" },
-          { name: "Conditioner", brand: "Kerastase", description: "Nourishing formula for soft, manageable hair" }
-        ]
-      },
-      {
-        name: "Hair Styling",
-        description: "Professional blowouts and styling for any occasion",
-        men: true,
-        women: true,
-        kids: true,
-        products: [
-          { name: "Heat Protectant", brand: "GHD", description: "Protects hair from heat damage up to 230°C" },
-          { name: "Hair Spray", brand: "Oribe", description: "Long-lasting hold with a natural finish" },
-          { name: "Serum", brand: "Moroccanoil", description: "Adds shine and reduces frizz" }
-        ]
-      },
-      {
-        name: "Beard Trim & Grooming",
-        description: "Precision beard shaping and grooming",
+        name: "Hair Cut (Master Stylist)",
+        description: "Precision cut by our master-level stylist",
         men: true,
         women: false,
         kids: false,
-        products: [
-          { name: "Beard Oil", brand: "The Art of Shaving", description: "Softens and conditions facial hair" },
-          { name: "Beard Balm", brand: "Jack Black", description: "Provides hold and tames flyaways" },
-          { name: "Trimmer", brand: "Wahl", description: "Professional-grade precision trimming" }
-        ]
-      }
-    ]
+        price: "₹1,500",
+      },
+      {
+        name: "Hair Cut (Sr. Stylist)",
+        description: "Expert cut by our senior stylist",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹2,000",
+      },
+      {
+        name: "Beard Crafting",
+        description: "Precision beard shaping and sculpting",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹600",
+      },
+      {
+        name: "Hair Wash + Styling",
+        description: "Refreshing wash with professional styling",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹500",
+      },
+      {
+        name: "Beard Clean Shave",
+        description: "Classic clean shave with hot towel finish",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹500",
+      },
+      {
+        name: "Steam Shave",
+        description: "Luxury steam shave for the smoothest finish",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹2,000",
+      },
+    ],
   },
   {
-    title: "Hair Color",
+    title: "Colour for Men",
     services: [
       {
-        name: "Full Color",
-        description: "Complete color transformation with premium products",
-        men: "Basic",
-        women: "Full range",
+        name: "Moustache / Side Locks",
+        description: "Targeted colour for moustache or side locks",
+        men: true,
+        women: false,
         kids: false,
-        products: [
-          { name: "Hair Color", brand: "L'Oréal Professionnel", description: "Vibrant, long-lasting color" },
-          { name: "Developer", brand: "L'Oréal Professionnel", description: "Professional strength developer" },
-          { name: "Color Gloss", brand: "Redken", description: "Adds shine and enhances tone" }
-        ]
+        price: "₹500",
+      },
+      {
+        name: "Beard Colour",
+        description: "Full beard colour for a refined look",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹1,000",
+      },
+      {
+        name: "Touch Up",
+        description: "Root touch-up colour to cover greys",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹1,800 onwards",
+      },
+      {
+        name: "Global Colour",
+        description: "Complete head-to-tip colour transformation",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹2,500 onwards",
       },
       {
         name: "Highlights",
-        description: "Dimensional color with foiling or balayage techniques",
-        men: "Basic",
-        women: "Full range",
+        description: "Dimensional highlights for added texture",
+        men: true,
+        women: false,
         kids: false,
-        products: [
-          { name: "Lightener", brand: "Schwarzkopf", description: "Gentle lightening for beautiful highlights" },
-          { name: "Foil", brand: "Joico", description: "Professional foils for precise application" },
-          { name: "Toner", brand: "Wella", description: "Perfects the final tone" }
-        ]
+        price: "₹3,000 onwards",
       },
+    ],
+  },
+  {
+    title: "Hair Rituals",
+    services: [
       {
-        name: "Color Correction",
-        description: "Expert color correction and toning",
-        men: false,
+        name: "Head Massage (30 mins)",
+        description: "Relaxing therapeutic head massage",
+        men: true,
         women: true,
         kids: false,
+        price: "₹800",
+      },
+      {
+        name: "Head Massage with Wash",
+        description: "Soothing massage followed by a revitalising wash",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,200",
+      },
+      {
+        name: "Loreal Hair Spa",
+        description: "Deep conditioning spa treatment with L'Oréal products",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,500",
         products: [
-          { name: "Color Remover", brand: "Malibu", description: "Gently removes unwanted color" },
-          { name: "Olaplex", brand: "Olaplex", description: "Bond builder for damaged hair" },
-          { name: "Deep Conditioner", brand: "K18", description: "Repairs and strengthens hair bonds" }
-        ]
-      }
-    ]
+          { name: "Hair Spa Cream", brand: "L'Oréal Professionnel", description: "Deep nourishing treatment" },
+        ],
+      },
+      {
+        name: "Moroccan Spa",
+        description: "Restorative spa infused with Moroccan argan oil",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,000",
+        products: [
+          { name: "Argan Oil Treatment", brand: "Moroccanoil", description: "Rich hydration and shine" },
+        ],
+      },
+      {
+        name: "Scalp Treatment",
+        description: "Therapeutic treatment targeting scalp health",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,200",
+      },
+    ],
   },
   {
     title: "Hair Treatments",
     services: [
       {
-        name: "Keratin Treatment",
-        description: "Smoothing treatment for frizzy and unmanageable hair",
+        name: "Keratin",
+        description: "Smoothing keratin treatment for frizz-free hair",
         men: true,
         women: true,
         kids: false,
-        products: [
-          { name: "Keratin Complex", brand: "Brazilian Blowout", description: "Professional smoothing treatment" },
-          { name: "Clarifying Shampoo", brand: "Nexxus", description: "Removes buildup before treatment" },
-          { name: "Aftercare Shampoo", brand: "Brazilian Blowout", description: "Sulfate-free for lasting results" }
-        ]
+        price: "₹3,000",
       },
       {
-        name: "Hair Spa",
-        description: "Deep conditioning and scalp treatment",
+        name: "QOD Cysteine",
+        description: "Advanced cysteine-based smoothing treatment",
         men: true,
         women: true,
         kids: false,
-        products: [
-          { name: "Deep Conditioner", brand: "Moroccanoil", description: "Intensive hydration treatment" },
-          { name: "Scalp Serum", brand: "Aveda", description: "Nourishes and soothes the scalp" },
-          { name: "Hair Mask", brand: "Olaplex", description: "Repairing treatment for damaged hair" }
-        ]
+        price: "₹3,000",
       },
       {
-        name: "Scalp Treatment",
-        description: "Therapeutic treatment for scalp conditions",
+        name: "Botox",
+        description: "Hair botox for deep repair and rejuvenation",
         men: true,
         women: true,
         kids: false,
-        products: [
-          { name: "Scalp Scrub", brand: "Christophe Robin", description: "Exfoliates and purifies the scalp" },
-          { name: "Scalp Serum", brand: "The Ordinary", description: "Targets specific scalp concerns" },
-          { name: "Scalp Massager", brand: "Tangle Teezer", description: "Stimulates blood circulation" }
-        ]
-      }
-    ]
-  }
+        price: "₹3,500",
+      },
+    ],
+  },
+  {
+    title: "Wax for Men",
+    services: [
+      {
+        name: "Forehead",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹250",
+      },
+      {
+        name: "Side & Jawline",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹300",
+      },
+      {
+        name: "Full Face",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹650",
+      },
+      {
+        name: "Underarms",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹350",
+      },
+      {
+        name: "Full Arms / Stomach",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹750",
+      },
+      {
+        name: "Full Arms & Underarms",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹1,000",
+      },
+      {
+        name: "Half Legs Front/Back",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹750",
+      },
+      {
+        name: "Full Legs Front/Back",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹1,000",
+      },
+      {
+        name: "Full Body",
+        men: true,
+        women: false,
+        kids: false,
+        price: "₹5,000",
+      },
+    ],
+  },
 ];
 
 const Hair = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img
-          src={heroHair}
-          alt="Hair Services"
-          className="w-full h-full object-cover"
+      <ServiceHero serviceType="hair">
+        <ServiceCTAs
+          onViewServices={() => {
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+              servicesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          onBookNow={() => {
+            window.location.href = '/#contact';
+          }}
         />
-        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-heading font-bold text-background"
-          >
-            HAIR ARTISTRY
-          </motion.h1>
-        </div>
-      </section>
+      </ServiceHero>
 
       {/* Services Section */}
-      <section className="py-20 px-4 bg-background/50">
+      <section id="services" className="py-20 px-4 bg-background/50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -168,7 +288,7 @@ const Hair = () => {
               Experience the perfect blend of artistry and precision with our comprehensive hair services.
               Our expert stylists are dedicated to enhancing your natural beauty with personalized care.
             </p>
-            <div className="w-24 h-0.5 bg-foreground/20 mx-auto mt-8"></div>
+            <div className="w-24 brand-divider mx-auto mt-8"></div>
           </motion.div>
 
           <div className="max-w-6xl mx-auto">
@@ -187,13 +307,15 @@ const Hair = () => {
               PERSONALIZED CONSULTATION
             </h3>
             <p className="text-foreground/70 font-light mb-8 leading-relaxed">
-              Our expert stylists are here to help you achieve your perfect look. 
-              Schedule a complimentary consultation to discuss your hair goals and 
+              Our expert stylists are here to help you achieve your perfect look.
+              Schedule a complimentary consultation to discuss your hair goals and
               receive personalized recommendations tailored to your unique style.
             </p>
-            <button className="border-2 border-foreground/90 text-foreground/90 px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300">
-              Book Your Consultation
-            </button>
+            <ConsultationCTA
+              onBookConsultation={() => {
+                window.location.href = '/#contact';
+              }}
+            />
           </motion.div>
         </div>
       </section>

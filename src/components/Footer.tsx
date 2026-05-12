@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Twitter, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Instagram, Facebook, Twitter, MapPin, Phone, Clock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,24 +19,29 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* About Column */}
           <div>
-            <h3 className="text-xl font-heading font-bold mb-4 text-background">
+            <h3 className="text-xl font-heading font-bold mb-4 text-brand-gold">
               ABOUT
             </h3>
             <p className="text-sm leading-relaxed opacity-90">
-              Blossom Salon is a premium beauty destination offering expert hair styling, 
+              Blossom Salon is a premium beauty destination offering expert hair styling,
               nail care, and makeup services. We believe in timeless elegance and personalized care.
             </p>
           </div>
 
           {/* Services Column */}
           <div>
-            <h3 className="text-xl font-heading font-bold mb-4 text-background">
+            <h3 className="text-xl font-heading font-bold mb-4 text-brand-gold">
               SERVICES
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/services/hair" className="text-sm hover:underline opacity-90 hover:opacity-100">
                   Hair Styling
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/skin" className="text-sm hover:underline opacity-90 hover:opacity-100">
+                  Skin Care
                 </Link>
               </li>
               <li>
@@ -60,53 +65,40 @@ const Footer = () => {
           {/* Contact & Hours Column */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-heading font-bold mb-4 text-background">
+              <h3 className="text-xl font-heading font-bold mb-4 text-brand-gold">
                 HOURS
               </h3>
               <ul className="space-y-2 text-sm opacity-90">
                 <li className="flex items-center">
                   <Clock className="w-4 h-4 mr-2" />
-                  Monday - Tuesday: 10:00 AM - 10:00 PM
-                </li>
-                <li className="flex items-center">
-                  <Clock className="w-4 h-4 mr-2 opacity-0" />
-                  Wednesday: Closed
-                </li>
-                <li className="flex items-center">
-                  <Clock className="w-4 h-4 mr-2 opacity-0" />
-                  Thursday - Sunday: 10:00 AM - 10:00 PM
+                  Open all days: 10:00 AM – 10:00 PM
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xl font-heading font-bold mb-4 text-background">
+              <h3 className="text-xl font-heading font-bold mb-4 text-brand-gold">
                 CONTACT
               </h3>
               <ul className="space-y-2 text-sm opacity-90">
                 <li className="flex items-start">
                   <MapPin className="w-4 h-4 mt-0.5 mr-2 flex-shrink-0" />
                   <div>
-                    <p>A WING, SHOP NO 4, NAYADEEP APARTMENT</p>
-                    <p>NEAR KALINGA RESTAURANT, RAVI RAJ COMPLEX</p>
-                    <p>NEW LINK ROAD, ANDHERI WEST</p>
+                    <p>SHOP NO 4 & 5, NYAYA DEEP SOC</p>
+                    <p>A WING, BEHIND SAB TV TOWER</p>
                     <p>MUMBAI, MAHARASHTRA 400053</p>
                   </div>
                 </li>
                 <li className="flex items-center">
                   <Phone className="w-4 h-4 mr-2" />
-                  <a href="tel:+915551234567" className="hover:underline">(555) 123-4567</a>
-                </li>
-                <li className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  <a href="mailto:hello@blossomsalon.com" className="hover:underline">hello@blossomsalon.com</a>
+                  <a href="tel:+919892657908" className="hover:underline">09892657908</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-background/20">
+        <div className="mt-12 pt-8 border-t border-brand-gold/20">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex space-x-6 mb-4 md:mb-0">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="opacity-90 hover:opacity-100 transition-opacity">
@@ -123,9 +115,9 @@ const Footer = () => {
               &copy; {currentYear} Blossom Salon. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0">
-              <button 
+              <button
                 onClick={() => handleNavClick("contact")}
-                className="px-4 py-2 text-sm font-medium border border-background/20 rounded-md hover:bg-background/10 transition-colors"
+                className="px-4 py-2 text-sm font-medium border border-brand-gold/40 rounded-md hover:bg-brand-rose hover:border-brand-rose hover:text-white transition-colors"
               >
                 Book an Appointment
               </button>

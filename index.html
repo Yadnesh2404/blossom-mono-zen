@@ -1,34 +1,48 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>Blossom Salon - Premium Hair, Nails & Makeup</title>
-    <meta name="description" content="Experience luxury and elegance at Blossom Salon. Expert hair styling, nail care, and makeup services in a serene, sophisticated setting." />
-    <meta name="author" content="Blossom Salon" />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://blossomsalon.com/" />
-    <meta property="og:title" content="Blossom Salon - Premium Beauty Services" />
-    <meta property="og:description" content="Experience luxury and elegance at Blossom Salon" />
-    <meta property="og:image" content="/opengraph-image.jpg" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <title>Blossom Salon - Premium Hair, Nails & Makeup</title>
+  <meta name="description"
+    content="Experience luxury and elegance at Blossom Salon. Expert hair styling, nail care, and makeup services in a serene, sophisticated setting." />
+  <meta name="author" content="Blossom Salon" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://blossomsalon.com/" />
-    <meta property="twitter:title" content="Blossom Salon - Premium Beauty Services" />
-    <meta property="twitter:description" content="Experience luxury and elegance at Blossom Salon" />
-    <meta property="twitter:image" content="/twitter-image.jpg" />
-  </head>
+  <!-- Preload LCP hero images -->
+  <link rel="preload" as="image" href="/images/hero/skin.jpg" />
+  <link rel="preload" as="image" href="/images/hero/nails.jpg" />
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- Fonts (non-render-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap"
+    media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800&display=swap" />
+  </noscript>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://blossomsalon.com/" />
+  <meta property="og:title" content="Blossom Salon - Premium Beauty Services" />
+  <meta property="og:description" content="Experience luxury and elegance at Blossom Salon" />
+  <meta property="og:image" content="/opengraph-image.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://blossomsalon.com/" />
+  <meta property="twitter:title" content="Blossom Salon - Premium Beauty Services" />
+  <meta property="twitter:description" content="Experience luxury and elegance at Blossom Salon" />
+  <meta property="twitter:image" content="/twitter-image.jpg" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

@@ -1,138 +1,60 @@
 import { motion } from "framer-motion";
-// High-quality makeup application image from Pexels
-const heroMakeup = 'https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
+import ServiceHero from "@/components/services/ServiceHero";
+import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
 
 const makeupServices = [
   {
-    title: "Special Occasion",
+    title: "Makeup",
     services: [
+      {
+        name: "Basic Makeup",
+        description: "Clean, polished look for everyday occasions",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹1,500",
+      },
+      {
+        name: "Party Makeup",
+        description: "Glamorous makeup perfect for events and celebrations",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹3,500",
+      },
       {
         name: "Bridal Makeup",
-        description: "Flawless, long-lasting makeup for your special day",
+        description: "Flawless, long-lasting bridal look for your special day",
         men: false,
         women: true,
         kids: false,
-        products: [
-          { name: "Long-Wear Foundation", brand: "Estée Lauder", description: "24-hour wear, transfer-resistant formula" },
-          { name: "Setting Spray", brand: "Urban Decay", description: "All-nighter setting spray for 16-hour wear" },
-          { name: "False Lashes", brand: "Ardell", description: "Natural-looking lash extensions" }
-        ]
+        price: "₹15,000 onwards",
       },
-      {
-        name: "Special Event Makeup",
-        description: "Glamorous looks for parties, galas, and celebrations",
-        men: false,
-        women: true,
-        kids: "16+",
-        products: [
-          { name: "Highlighter Palette", brand: "Fenty Beauty", description: "Versatile highlighting shades" },
-          { name: "Liquid Lipstick", brand: "Huda Beauty", description: "Long-wearing, matte finish" },
-          { name: "Glitter Pigments", brand: "Stila", description: "Eye and face glitters" }
-        ]
-      },
-      {
-        name: "Photoshoot Makeup",
-        description: "Camera-ready makeup for professional shoots",
-        men: true,
-        women: true,
-        kids: false,
-        products: [
-          { name: "HD Foundation", brand: "Make Up For Ever", description: "Camera-friendly, medium to full coverage" },
-          { name: "Color Corrector", brand: "LA Girl", description: "Professional color correcting palette" },
-          { name: "Matte Powder", brand: "Laura Mercier", description: "Translucent setting powder" }
-        ]
-      }
-    ]
+    ],
   },
-  {
-    title: "Everyday Makeup",
-    services: [
-      {
-        name: "Natural/Everyday Makeup",
-        description: "Subtle enhancement for daily confidence",
-        men: false,
-        women: true,
-        kids: false,
-        products: [
-          { name: "Tinted Moisturizer", brand: "NARS", description: "Sheer, buildable coverage" },
-          { name: "Cream Blush", brand: "Glossier", description: "Natural, dewy flush" },
-          { name: "Mascara", brand: "Benefit", description: "Lengthening and defining" }
-        ]
-      },
-      {
-        name: "Men's Grooming Makeup",
-        description: "Subtle coverage for professional appearances",
-        men: true,
-        women: false,
-        kids: false,
-        products: [
-          { name: "BB Cream", brand: "Kiehl's", description: "Light coverage, natural finish" },
-          { name: "Concealer", brand: "Tom Ford", description: "Undetectable coverage" },
-          { name: "Brow Gel", brand: "Anastasia Beverly Hills", description: "Tames and defines brows" }
-        ]
-      },
-      {
-        name: "Teen Makeup",
-        description: "Age-appropriate looks for special occasions",
-        men: false,
-        women: true,
-        kids: "13-17"
-      }
-    ]
-  },
-  {
-    title: "Education & Enhancement",
-    services: [
-      {
-        name: "Makeup Lessons",
-        description: "Learn professional techniques tailored to your features",
-        men: true,
-        women: true,
-        kids: "16+"
-      },
-      {
-        name: "Bridal Trial",
-        description: "Custom makeup trial before your wedding day",
-        men: false,
-        women: true,
-        kids: false
-      },
-      {
-        name: "Makeup for Special Effects",
-        description: "Theatrical and special effects makeup",
-        men: true,
-        women: true,
-        kids: false
-      }
-    ]
-  }
 ];
 
 const Makeup = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img
-          src={heroMakeup}
-          alt="Makeup Services"
-          className="w-full h-full object-cover"
+      <ServiceHero serviceType="makeup">
+        <ServiceCTAs
+          onViewServices={() => {
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+              servicesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          onBookNow={() => {
+            window.location.href = '/#contact';
+          }}
         />
-        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-heading font-bold text-background text-center px-4"
-          >
-            MAKEUP EXCELLENCE
-          </motion.h1>
-        </div>
-      </section>
+      </ServiceHero>
 
       {/* Services Section */}
-      <section className="py-20 px-4 bg-background/50">
+      <section id="services" className="py-20 px-4 bg-background/50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +70,7 @@ const Makeup = () => {
               Our professional makeup artists create looks that enhance your natural beauty,
               whether you're seeking subtle elegance or dramatic glamour for any occasion.
             </p>
-            <div className="w-24 h-0.5 bg-foreground/20 mx-auto mt-8"></div>
+            <div className="w-24 brand-divider mx-auto mt-8"></div>
           </motion.div>
 
           <div className="max-w-6xl mx-auto">
@@ -169,9 +91,11 @@ const Makeup = () => {
               Our professional makeup artists are ready to create your perfect look.
               Book a consultation to discuss your vision and preferences.
             </p>
-            <button className="border-2 border-foreground/90 text-foreground/90 px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300">
-              Book Now
-            </button>
+            <ConsultationCTA
+              onBookConsultation={() => {
+                window.location.href = '/#contact';
+              }}
+            />
           </motion.div>
         </div>
       </section>

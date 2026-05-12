@@ -1,138 +1,207 @@
 import { motion } from "framer-motion";
-// High-quality skin treatment image from Pexels
-const heroSkin = 'https://images.pexels.com/photos/6621344/pexels-photo-6621344.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
+import ServiceHero from "@/components/services/ServiceHero";
+import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
 
 const skinServices = [
   {
-    title: "Facials & Treatments",
+    title: "Threading",
     services: [
       {
-        name: "Signature Facial",
-        description: "Deep cleansing, exfoliation, and hydration for all skin types",
+        name: "Eyebrow",
         men: true,
         women: true,
         kids: false,
-        products: [
-          { name: "Cleanser", brand: "CeraVe", description: "Gentle foaming cleanser for all skin types" },
-          { name: "Exfoliator", brand: "Dermalogica", description: "Daily microfoliant for smooth, radiant skin" },
-          { name: "Hydrating Mask", brand: "Drunk Elephant", description: "Ultra-hydrating mask with vitamin E" }
-        ]
+        price: "₹200",
       },
       {
-        name: "Anti-Aging Facial",
-        description: "Targeted treatment to reduce fine lines and improve elasticity",
+        name: "Side & Jawline",
         men: true,
         women: true,
         kids: false,
-        products: [
-          { name: "Retinol Serum", brand: "SkinCeuticals", description: "Advanced anti-aging formula" },
-          { name: "Peptide Complex", brand: "The Ordinary", description: "Boosts collagen production" },
-          { name: "Hyaluronic Acid", brand: "The Inkey List", description: "Intense hydration plumping" }
-        ]
+        price: "₹150",
       },
       {
-        name: "Teen Facial",
-        description: "Gentle treatment for young, acne-prone skin",
-        men: true,
-        women: true,
-        kids: "12+",
-        products: [
-          { name: "Salicylic Acid Cleanser", brand: "La Roche-Posay", description: "Gentle yet effective acne treatment" },
-          { name: "Tea Tree Oil", brand: "The Body Shop", description: "Natural antibacterial properties" },
-          { name: "Oil-Free Moisturizer", brand: "Neutrogena", description: "Lightweight hydration without clogging pores" }
-        ]
-      }
-    ]
-  },
-  {
-    title: "Advanced Skin Solutions",
-    services: [
-      {
-        name: "Chemical Peels",
-        description: "Professional exfoliation for smoother, brighter skin",
-        men: true,
-        women: true,
-        kids: false,
-        products: [
-          { name: "Glycolic Acid Solution", brand: "The Ordinary", description: "30% AHA + BHA peeling solution" },
-          { name: "Lactic Acid Peel", brand: "Drunk Elephant", description: "Gentle exfoliation for sensitive skin" },
-          { name: "Post-Peel Balm", brand: "First Aid Beauty", description: "Calms and soothes after treatment" }
-        ]
-      },
-      {
-        name: "Microdermabrasion",
-        description: "Non-invasive exfoliation for refined skin texture",
-        men: true,
-        women: true,
-        kids: false,
-        products: [
-          { name: "Diamond Tip Wand", brand: "DiamondGlow", description: "Professional-grade exfoliation tool" },
-          { name: "Crystal-Free Solution", brand: "Dermalogica", description: "Gentle alternative to traditional microdermabrasion" },
-          { name: "Soothing Serum", brand: "SkinMedica", description: "Post-treatment calming complex" }
-        ]
-      },
-      {
-        name: "LED Light Therapy",
-        description: "Targeted light treatment for various skin concerns",
-        men: true,
-        women: true,
-        kids: false
-      }
-    ]
-  },
-  {
-    title: "Specialty Treatments",
-    services: [
-      {
-        name: "Dermaplaning",
-        description: "Precise exfoliation for ultra-smooth skin",
+        name: "Upperlip / Lowerlip / Chin / Nose",
+        description: "Per area",
         men: false,
         women: true,
-        kids: false
+        kids: false,
+        price: "₹100",
       },
       {
-        name: "Men's Grooming Facial",
-        description: "Designed for men's specific skin needs",
-        men: true,
-        women: false,
-        kids: false
-      },
-      {
-        name: "Back Treatment",
-        description: "Deep cleansing and treatment for back acne",
+        name: "Forehead",
         men: true,
         women: true,
-        kids: "16+"
-      }
-    ]
-  }
+        kids: false,
+        price: "₹100",
+      },
+      {
+        name: "Full Face",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹400",
+      },
+    ],
+  },
+  {
+    title: "Clean Ups",
+    services: [
+      {
+        name: "Face Massage",
+        description: "Relaxing facial massage to improve circulation",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹750",
+      },
+      {
+        name: "Hydra Clean Up",
+        description: "Deep hydrating clean-up for a refreshed glow",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,000",
+      },
+      {
+        name: "Seaweed Clean Up",
+        description: "Mineral-rich seaweed clean-up for nourished skin",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,250",
+      },
+      {
+        name: "Lightening Clean Up",
+        description: "Brightening clean-up for a radiant complexion",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,500",
+      },
+      {
+        name: "DNA Clean Up",
+        description: "Advanced DNA-based skin rejuvenation",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,000",
+      },
+      {
+        name: "Mineral Express Clean Up",
+        description: "Quick mineral-infused clean-up for busy schedules",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,500",
+      },
+    ],
+  },
+  {
+    title: "Advanced Facial",
+    services: [
+      {
+        name: "Lightening Facial",
+        description: "Targeted brightening for an even skin tone",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,000",
+      },
+      {
+        name: "Seaweed Facial",
+        description: "Nutrient-rich facial with marine-based actives",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,500",
+      },
+      {
+        name: "Whitening + C Pure Facial",
+        description: "Vitamin C-infused whitening treatment for luminous skin",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹3,500",
+      },
+      {
+        name: "Brightening Facial",
+        description: "Multi-step brightening treatment for lasting glow",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹3,500",
+      },
+      {
+        name: "DNA Facial",
+        description: "Cutting-edge DNA facial for deep cellular renewal",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹4,000",
+      },
+      {
+        name: "Mineral Facial",
+        description: "Mineral-enriched facial for balanced, healthy skin",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹4,500",
+      },
+    ],
+  },
+  {
+    title: "Luxurious Facial",
+    services: [
+      {
+        name: "Sensitive Facial",
+        description: "Gentle, calming treatment for sensitive skin types",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹5,000",
+      },
+      {
+        name: "Precious Mineral Facial",
+        description: "Premium mineral-infused luxury facial",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹7,000",
+      },
+      {
+        name: "Nutrimoor Facial",
+        description: "Ultimate nourishing facial with moor extracts",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹8,000",
+      },
+    ],
+  },
 ];
 
 const Skin = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img
-          src={heroSkin}
-          alt="Skin Care Services"
-          className="w-full h-full object-cover"
+      <ServiceHero serviceType="skin">
+        <ServiceCTAs
+          onViewServices={() => {
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+              servicesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          onBookNow={() => {
+            window.location.href = '/#contact';
+          }}
         />
-        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-heading font-bold text-background text-center px-4"
-          >
-            SKIN SOLUTIONS
-          </motion.h1>
-        </div>
-      </section>
+      </ServiceHero>
 
       {/* Services Section */}
-      <section className="py-20 px-4 bg-background/50">
+      <section id="services" className="py-20 px-4 bg-background/50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +217,7 @@ const Skin = () => {
               Rejuvenate your skin with our expert treatments designed for all skin types and concerns.
               Our licensed estheticians use premium products to reveal your healthiest, most radiant skin.
             </p>
-            <div className="w-24 h-0.5 bg-foreground/20 mx-auto mt-8"></div>
+            <div className="w-24 brand-divider mx-auto mt-8"></div>
           </motion.div>
 
           <div className="max-w-6xl mx-auto">
@@ -169,9 +238,11 @@ const Skin = () => {
               Our skin care experts will analyze your skin and recommend personalized treatments
               to address your specific concerns and help you achieve your skincare goals.
             </p>
-            <button className="border-2 border-foreground/90 text-foreground/90 px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300">
-              Book Your Consultation
-            </button>
+            <ConsultationCTA
+              onBookConsultation={() => {
+                window.location.href = '/#contact';
+              }}
+            />
           </motion.div>
         </div>
       </section>

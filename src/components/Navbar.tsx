@@ -14,9 +14,9 @@ const Navbar = () => {
   const isHome = location.pathname === "/";
 
   const serviceLinks = [
-    { name: "HAIR", path: "/services/hair" },
     { name: "SKIN", path: "/services/skin" },
     { name: "NAILS", path: "/services/nails" },
+    { name: "HAIR", path: "/services/hair" },
     { name: "MAKEUP", path: "/services/makeup" },
     { name: "SPA", path: "/services/spa" },
   ];
@@ -53,22 +53,35 @@ const Navbar = () => {
 
   const handleNavClick = (sectionId: string) => {
     if (!isHome) {
+      setIsOpen(false);
       window.location.href = `/#${sectionId}`;
     } else {
-      scrollToSection(sectionId);
+      // Close menu first, then scroll after overflow is restored
+      setIsOpen(false);
+      setMobileServicesOpen(false);
+      document.body.style.overflow = 'unset';
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 50);
     }
   };
 
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-foreground">
+      <div className="brand-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
-          {/* Logo - centered on mobile */}
-          <div className="flex-1 md:flex-none text-center md:text-left">
-            <Link to="/" className="flex items-center justify-center md:justify-start">
-              <h1 className="text-xl md:text-3xl font-heading font-bold tracking-tight">
-                BLOSSOM SALON
-              </h1>
+          {/* Logo */}
+          <div className="md:flex-none">
+            <Link to="/" className="flex items-center">
+              <img
+                src="/images/logo.png"
+                alt="Blossom Salon"
+                className="h-12 md:h-[120px] w-auto"
+              />
             </Link>
           </div>
 
@@ -81,14 +94,14 @@ const Navbar = () => {
             >
               ABOUT
             </button>
-            
+
             {/* Services Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <button 
+              <button
                 className="group relative text-sm font-medium opacity-60 hover:opacity-100 flex items-center"
                 aria-expanded={servicesOpen}
                 aria-haspopup="true"
@@ -96,7 +109,7 @@ const Navbar = () => {
                 <span className="link-underline">SERVICES</span>
                 <ChevronDown className="w-3 h-3 ml-1.5 transition-transform duration-200 group-hover:translate-y-0.5" />
               </button>
-              
+
               <AnimatePresence>
                 {servicesOpen && (
                   <motion.div
@@ -104,7 +117,7 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="absolute top-full left-0 mt-2 w-56 bg-background border border-foreground shadow-lg z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-44 bg-background border border-foreground shadow-lg z-50"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="services-menu"
@@ -113,7 +126,7 @@ const Navbar = () => {
                       <Link
                         key={link.path}
                         to={link.path}
-                        className="block px-6 py-3 text-sm font-medium hover:bg-foreground hover:text-background transition-colors whitespace-normal w-full"
+                        className="block px-5 py-3 text-sm font-medium text-left hover:bg-foreground hover:text-background transition-colors w-full"
                         role="menuitem"
                       >
                         {link.name}
@@ -138,10 +151,10 @@ const Navbar = () => {
             >
               CONTACT
             </button>
-            
+
             <button
-              onClick={() => handleNavClick("booking")}
-              className="hidden md:flex items-center ml-6 bg-black text-white hover:bg-gray-900 transition-colors h-10 px-4 py-2 text-sm font-medium"
+              onClick={() => handleNavClick("contact")}
+              className="hidden md:flex items-center ml-6 bg-brand-rose text-white hover:bg-brand-rose/90 transition-colors h-10 px-4 py-2 text-sm font-medium"
               aria-label="Book an appointment"
             >
               <Calendar className="w-4 h-4 mr-2" />
@@ -171,44 +184,111 @@ const Navbar = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden border-t border-foreground"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden overflow-hidden"
             >
-              <div className="py-4 space-y-4">
-                <button
+              <div className="brand-divider"></div>
+              <div className="py-6 px-6 space-y-1">
+                {/* ABOUT */}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 }}
                   onClick={() => handleNavClick("about")}
-                  className="block w-full text-left px-4 py-2 text-sm font-medium"
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors"
                 >
                   ABOUT
-                </button>
-                
-                <div className="px-4 py-2 w-full">
-                  <p className="text-sm font-medium mb-2">SERVICES</p>
-                  {serviceLinks.map((link) => (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      onClick={() => setIsOpen(false)}
-                      className="block py-2 pl-4 pr-6 text-sm font-medium opacity-60 hover:opacity-100 whitespace-normal w-full"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
+                </motion.button>
 
-                <button
+                {/* SERVICES — Accordion */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="border-b border-foreground/5"
+                >
+                  <button
+                    onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                    className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors"
+                  >
+                    SERVICES
+                    <motion.div
+                      animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
+                  </button>
+                  <AnimatePresence>
+                    {mobileServicesOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pl-4 pb-3 space-y-1">
+                          {serviceLinks.map((link, i) => (
+                            <motion.div
+                              key={link.path}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: i * 0.05 }}
+                            >
+                              <Link
+                                to={link.path}
+                                onClick={() => setIsOpen(false)}
+                                className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors"
+                              >
+                                <span className="w-4 h-[1px] bg-brand-gold/50"></span>
+                                {link.name}
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* TESTIMONIALS */}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15 }}
                   onClick={() => handleNavClick("testimonials")}
-                  className="block w-full text-left px-4 py-2 text-sm font-medium"
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors"
                 >
                   TESTIMONIALS
-                </button>
+                </motion.button>
 
-                <button
+                {/* CONTACT */}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
                   onClick={() => handleNavClick("contact")}
-                  className="block w-full text-left px-4 py-2 text-sm font-medium"
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors"
                 >
                   CONTACT
-                </button>
+                </motion.button>
+
+                {/* BOOK NOW CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-4"
+                >
+                  <button
+                    onClick={() => handleNavClick("contact")}
+                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-colors hover:bg-brand-rose/90"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    BOOK NOW
+                  </button>
+                </motion.div>
               </div>
             </motion.div>
           )}

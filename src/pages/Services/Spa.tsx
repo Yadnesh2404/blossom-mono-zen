@@ -1,113 +1,84 @@
 import { motion } from "framer-motion";
-// High-quality spa service image from Pexels
-const heroSpa = 'https://images.pexels.com/photos/6621333/pexels-photo-6621333.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
+import ServiceHero from "@/components/services/ServiceHero";
+import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
 
 const spaServices = [
   {
-    title: "Body Treatments",
+    title: "Massage",
     services: [
       {
-        name: "Aromatherapy Massage",
-        description: "Therapeutic massage using essential oils to enhance physical and emotional well-being",
-        duration: "60 min",
-        price: 120,
+        name: "Foot Massage (20 mins)",
+        description: "Quick, rejuvenating foot massage",
         men: true,
         women: true,
-        kids: false
+        kids: false,
+        price: "₹500",
       },
       {
-        name: "Hot Stone Therapy",
-        description: "Warm stones and massage techniques to relieve tension and improve circulation",
-        duration: "90 min",
-        price: 150,
+        name: "Back Massage (30 mins)",
+        description: "Targeted relief for back tension and knots",
         men: true,
         women: true,
-        kids: false
+        kids: false,
+        price: "₹800",
       },
       {
-        name: "Body Wrap",
-        description: "Detoxifying and hydrating treatment with natural ingredients",
-        duration: "75 min",
-        price: 135,
+        name: "Foot Reflexology",
+        description: "Therapeutic pressure-point foot therapy",
         men: true,
         women: true,
-        kids: false
-      }
-    ]
+        kids: false,
+        price: "₹1,200",
+      },
+      {
+        name: "Swedish Massage",
+        description: "Classic full-body relaxation massage",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,500",
+      },
+      {
+        name: "Aroma Massage",
+        description: "Aromatherapy massage with essential oils",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹3,000",
+      },
+      {
+        name: "Deep Tissue Massage",
+        description: "Intensive massage for deep muscle relief",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹3,500",
+      },
+    ],
   },
-  {
-    title: "Facial Treatments",
-    services: [
-      {
-        name: "Signature Facial",
-        description: "Customized facial treatment for your specific skin needs",
-        duration: "60 min",
-        price: 110,
-        men: true,
-        women: true,
-        kids: false
-      },
-      {
-        name: "Anti-Aging Treatment",
-        description: "Advanced treatment to reduce fine lines and improve skin elasticity",
-        duration: "75 min",
-        price: 145,
-        men: true,
-        women: true,
-        kids: false
-      }
-    ]
-  },
-  {
-    title: "Specialty Treatments",
-    services: [
-      {
-        name: "Couples Massage",
-        description: "Side-by-side massage experience in a private suite",
-        duration: "90 min",
-        price: 250,
-        men: true,
-        women: true,
-        kids: false
-      },
-      {
-        name: "Prenatal Massage",
-        description: "Specialized massage for expectant mothers",
-        duration: "60 min",
-        price: 120,
-        men: false,
-        women: true,
-        kids: false
-      }
-    ]
-  }
 ];
 
 const Spa = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img
-          src={heroSpa}
-          alt="Luxury Spa Services"
-          className="w-full h-full object-cover"
+      <ServiceHero serviceType="spa">
+        <ServiceCTAs
+          onViewServices={() => {
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+              servicesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          onBookNow={() => {
+            window.location.href = '/#contact';
+          }}
         />
-        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-heading font-bold text-background text-center px-4"
-          >
-            SPA
-          </motion.h1>
-        </div>
-      </section>
+      </ServiceHero>
 
       {/* Services Section */}
-      <section className="py-20 px-4">
+      <section id="services" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -120,8 +91,8 @@ const Spa = () => {
               OUR SPA SERVICES
             </h2>
             <p className="max-w-3xl mx-auto text-lg leading-relaxed font-light">
-              Indulge in our luxurious spa treatments designed to rejuvenate your body, 
-              refresh your mind, and restore your spirit. Our expert therapists use only 
+              Indulge in our luxurious spa treatments designed to rejuvenate your body,
+              refresh your mind, and restore your spirit. Our expert therapists use only
               the finest products and techniques to ensure a truly transformative experience.
             </p>
           </motion.div>

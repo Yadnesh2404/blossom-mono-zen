@@ -47,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          rose: "hsl(var(--brand-rose))",
+          gold: "hsl(var(--brand-gold))",
+          green: "hsl(var(--brand-green))",
+        },
       },
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],

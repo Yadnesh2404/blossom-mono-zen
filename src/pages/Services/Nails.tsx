@@ -1,138 +1,198 @@
 import { motion } from "framer-motion";
-// High-quality nail service image from Pexels
-const heroNails = 'https://images.pexels.com/photos/3997374/pexels-photo-3997374.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
+import ServiceHero from "@/components/services/ServiceHero";
+import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
 
 const nailServices = [
   {
-    title: "Manicures",
+    title: "Nail Studio",
     services: [
       {
-        name: "Classic Manicure",
-        description: "Traditional nail care with cuticle treatment and polish",
-        men: true,
-        women: true,
-        kids: "12+",
-        products: [
-          { name: "Cuticle Oil", brand: "CND", description: "Nourishing oil for healthy cuticles" },
-          { name: "Nail Polish", brand: "OPI", description: "Wide range of classic colors" },
-          { name: "Hand Cream", brand: "Aveda", description: "Rich moisturizer for soft hands" }
-        ]
-      },
-      {
-        name: "Gel Manicure",
-        description: "Long-lasting gel polish with superior shine and durability",
-        men: true,
-        women: true,
-        kids: "16+",
-        products: [
-          { name: "Gel Polish", brand: "CND Shellac", description: "Professional gel polish system" },
-          { name: "LED/UV Lamp", brand: "Gelish", description: "Fast-curing lamp for gel polish" },
-          { name: "Gel Remover", brand: "CND", description: "Gentle gel polish remover" }
-        ]
-      },
-      {
-        name: "Express Manicure",
-        description: "Quick nail care for busy individuals",
+        name: "Nail Cut / File",
+        description: "Basic nail shaping and filing",
         men: true,
         women: true,
         kids: true,
-        products: [
-          { name: "Quick Dry Polish", brand: "Essie", description: "Fast-drying nail polish" },
-          { name: "Nail Wipes", brand: "Sally Hansen", description: "Quick cleanup wipes" },
-          { name: "Cuticle Pusher", brand: "Tweezerman", description: "Precision cuticle tool" }
-        ]
-      }
-    ]
-  },
-  {
-    title: "Pedicures",
-    services: [
-      {
-        name: "Luxury Pedicure",
-        description: "Complete foot care with exfoliation and massage",
-        men: true,
-        women: true,
-        kids: "12+",
-        products: [
-          { name: "Foot Scrub", brand: "Tula", description: "Exfoliating scrub for smooth feet" },
-          { name: "Callus Remover", brand: "Baby Foot", description: "Gentle callus treatment" },
-          { name: "Peppermint Lotion", brand: "The Body Shop", description: "Refreshing foot cream" }
-        ]
+        price: "₹200",
       },
       {
-        name: "Spa Pedicure",
-        description: "Ultimate relaxation with extended massage and mask",
+        name: "Regular Polish",
+        description: "Classic nail polish application",
+        men: false,
+        women: true,
+        kids: true,
+        price: "₹150",
+      },
+      {
+        name: "Regular French Polish",
+        description: "Elegant French-tip polish finish",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹600",
+      },
+      {
+        name: "Gel Top Coat",
+        description: "High-shine gel top coat for lasting wear",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹400",
+      },
+      {
+        name: "Plain Gel Polish",
+        description: "Long-lasting gel polish in your choice of colour",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹900",
+      },
+      {
+        name: "Glitter / French Gel",
+        description: "Sparkling glitter or French gel finish",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹1,200",
+      },
+      {
+        name: "Chrome / Cat Eye",
+        description: "Trendy chrome or cat-eye gel effect",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹1,800",
+      },
+      {
+        name: "Ombre Polish",
+        description: "Gradient ombre nail art",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹2,000",
+      },
+      {
+        name: "Creative Nail Art",
+        description: "Custom hand-painted nail art designs",
+        men: false,
+        women: true,
+        kids: false,
+        price: "₹1,500",
+      },
+    ],
+  },
+  {
+    title: "Manicure",
+    services: [
+      {
+        name: "Signature",
+        description: "Classic manicure with cuticle care and polish",
         men: true,
         women: true,
         kids: false,
-        products: [
-          { name: "Paraffin Wax", brand: "Therabath", description: "Deep moisturizing treatment" },
-          { name: "Hydrating Mask", brand: "Patchology", description: "Booties with intense hydration" },
-          { name: "Massage Oil", brand: "Aveda", description: "Aromatherapy foot massage oil" }
-        ]
+        price: "₹500",
       },
       {
-        name: "Express Pedicure",
-        description: "Basic foot care and polish",
+        name: "AVL",
+        description: "AVL manicure with premium products",
         men: true,
         women: true,
-        kids: true
-      }
-    ]
+        kids: false,
+        price: "₹800",
+      },
+      {
+        name: "Sugar",
+        description: "Sugar scrub manicure for smooth, soft hands",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,500",
+      },
+      {
+        name: "Icecream / Candle",
+        description: "Indulgent spa manicure with unique treatments",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,700",
+      },
+      {
+        name: "Mineral",
+        description: "Luxury mineral-infused manicure",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,200",
+      },
+    ],
   },
   {
-    title: "Nail Enhancements",
+    title: "Pedicure",
     services: [
       {
-        name: "Nail Extensions",
-        description: "Acrylic or gel extensions for added length",
-        men: false,
-        women: true,
-        kids: false
-      },
-      {
-        name: "Nail Art & Design",
-        description: "Custom designs and nail art",
-        men: false,
-        women: true,
-        kids: true
-      },
-      {
-        name: "Nail Repair",
-        description: "Professional repair for damaged nails",
+        name: "Signature",
+        description: "Essential pedicure with nail care and polish",
         men: true,
         women: true,
-        kids: true
-      }
-    ]
-  }
+        kids: false,
+        price: "₹750",
+      },
+      {
+        name: "AVL",
+        description: "AVL pedicure with premium foot care",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,000",
+      },
+      {
+        name: "Sugar",
+        description: "Sugar scrub pedicure for baby-soft feet",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹1,800",
+      },
+      {
+        name: "Icecream / Candle",
+        description: "Indulgent spa pedicure with unique treatments",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,000",
+      },
+      {
+        name: "Mineral",
+        description: "Luxury mineral-infused pedicure",
+        men: true,
+        women: true,
+        kids: false,
+        price: "₹2,800",
+      },
+    ],
+  },
 ];
 
 const Nails = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img
-          src={heroNails}
-          alt="Nail Services"
-          className="w-full h-full object-cover"
+      <ServiceHero serviceType="nails">
+        <ServiceCTAs
+          onViewServices={() => {
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+              servicesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          onBookNow={() => {
+            window.location.href = '/#contact';
+          }}
         />
-        <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-heading font-bold text-background text-center px-4"
-          >
-            NAIL PERFECTION
-          </motion.h1>
-        </div>
-      </section>
+      </ServiceHero>
 
       {/* Services Section */}
-      <section className="py-20 px-4 bg-background/50">
+      <section id="services" className="py-20 px-4 bg-background/50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +208,7 @@ const Nails = () => {
               Experience the perfect blend of precision and artistry with our comprehensive nail services.
               Our skilled technicians use premium products to keep your hands and feet looking their best.
             </p>
-            <div className="w-24 h-0.5 bg-foreground/20 mx-auto mt-8"></div>
+            <div className="w-24 brand-divider mx-auto mt-8"></div>
           </motion.div>
 
           <div className="max-w-6xl mx-auto">

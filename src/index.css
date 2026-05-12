@@ -38,6 +38,11 @@ All colors MUST be HSL.
     --ring: 0 0% 0%;
 
     --radius: 0;
+
+    /* Brand colors from logo */
+    --brand-rose: 344 64% 50%;
+    --brand-gold: 40 47% 56%;
+    --brand-green: 108 30% 38%;
     
     /* Typography */
     --font-heading: 'Poppins', sans-serif;
@@ -81,19 +86,33 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  /* Underline animation for links */
+  /* Underline animation for links - gold brand accent */
   .link-underline {
     @apply relative inline-block;
   }
   
   .link-underline::after {
     content: '';
-    @apply absolute w-full h-[1px] bottom-0 left-0 bg-foreground scale-x-0 origin-bottom-right;
+    @apply absolute w-full h-[1.5px] bottom-0 left-0 scale-x-0 origin-bottom-right;
+    background-color: hsl(var(--brand-gold));
     transition: transform 0.3s ease-out;
   }
   
   .link-underline:hover::after {
     @apply scale-x-100 origin-bottom-left;
+  }
+
+  /* Brand gradient divider */
+  .brand-divider {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--brand-gold) / 0.5),
+      hsl(var(--brand-rose) / 0.4),
+      hsl(var(--brand-gold) / 0.5),
+      transparent
+    );
   }
   
   /* Fade in animation */

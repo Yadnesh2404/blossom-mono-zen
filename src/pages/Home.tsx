@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import HeroCarousel from "@/components/HeroCarousel";
+import { handleAnchorClick } from "@/lib/scroll-utils";
 // Using a high-quality color image from Pexels
 const aboutSalon = 'https://images.pexels.com/photos/3992871/pexels-photo-3992871.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, User, Phone, Mail, MessageSquare, MapPin, Clock } from "lucide-react";
 
 const testimonials = [
   {
@@ -47,27 +48,63 @@ const Home = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
+    service: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
+
+    // Basic validation
+    if (!formData.name.trim()) {
       toast({
         title: "Error",
-        description: "Please fill in all fields",
+        description: "Please enter your name",
         variant: "destructive",
       });
       return;
     }
 
-    toast({
-      title: "Message Sent",
-      description: "We'll get back to you soon!",
-    });
-    
-    setFormData({ name: "", email: "", message: "" });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter your message",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Here you would typically make an API call to submit the form
+      // For now, we'll simulate a successful submission
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      toast({
+        title: "Message Sent",
+        description: "We'll get back to you within 24-48 hours!",
+      });
+
+      // Reset form
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -85,6 +122,13 @@ const Home = () => {
       {/* Welcome Section */}
       <section className="py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="w-24 h-[2px] mx-auto mb-8 brand-divider"
+          />
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +136,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-heading font-bold mb-6"
           >
-            WELCOME TO BLOSSOM
+            WELCOME TO <span className="text-brand-gold">BLOSSOM</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -101,8 +145,8 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-lg md:text-xl leading-relaxed mb-12 font-light"
           >
-            Where elegance meets expertise. Experience premium beauty services 
-            in a serene, sophisticated setting. At Blossom Salon, we're dedicated 
+            Where elegance meets expertise. Experience premium beauty services
+            in a serene, sophisticated setting. At Blossom Salon, we're dedicated
             to bringing you an elevated beauty experience that's truly exceptional.
           </motion.p>
           <motion.div
@@ -115,8 +159,19 @@ const Home = () => {
             <Button asChild size="lg">
               <Link to="/services/hair">EXPLORE SERVICES</Link>
             </Button>
-            <Button asChild variant="outline" size="lg">
-              <a href="#contact">BOOK APPOINTMENT</a>
+            <Button
+              variant="outline"
+              size="lg"
+              className="hover:bg-brand-rose hover:text-white hover:border-brand-rose transition-all duration-300"
+              onClick={(e) => {
+                e.preventDefault();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              BOOK APPOINTMENT
             </Button>
           </motion.div>
         </div>
@@ -131,17 +186,15 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true, margin: '0px 0px -100px 0px' }}
-              className="relative w-full h-[500px] will-change-transform"
+              className="relative w-full will-change-transform"
             >
               <div className="absolute inset-0 bg-foreground/5 animate-pulse rounded-md"></div>
               <img
-                src="/images/hero/salon-interior.jpg"
-                alt="Elegant salon interior with modern design and natural light"
-                width={1920}
-                height={1280}
+                src="/images/Our story.JPG"
+                alt="Dhara Joshi, founder of Blossom Salon, with the DD logo"
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover border-2 border-foreground will-change-transform"
+                className="relative w-full h-auto max-h-[650px] object-cover object-top border-2 border-brand-gold/60 will-change-transform"
                 style={{
                   contentVisibility: 'auto',
                   imageRendering: '-webkit-optimize-contrast',
@@ -163,24 +216,24 @@ const Home = () => {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8">
-                OUR STORY
+                OUR <span className="text-brand-gold">STORY</span>
               </h2>
               <p className="text-lg leading-relaxed mb-6 font-light">
-                Born from a passion for timeless beauty, Blossom Salon stands as 
-                a modern sanctuary of elegance in the heart of the city. Our journey 
-                is built on a simple belief: beauty services should be more than 
-                routine appointments—they should be transformative experiences that 
+                Born from a passion for timeless beauty, Blossom Salon stands as
+                a modern sanctuary of elegance in the heart of the city. Our journey
+                is built on a simple belief: beauty services should be more than
+                routine appointments—they should be transformative experiences that
                 celebrate your unique beauty.
               </p>
               <p className="text-lg leading-relaxed mb-6 font-light">
-                With years of expertise and a commitment to excellence, we've created 
-                a space where sophistication meets comfort, where every detail is 
-                considered, and where your beauty journey is treated with the reverence 
+                With years of expertise and a commitment to excellence, we've created
+                a space where sophistication meets comfort, where every detail is
+                considered, and where your beauty journey is treated with the reverence
                 it deserves.
               </p>
               <p className="text-lg leading-relaxed font-light">
-                We believe in the power of simplicity. True beauty doesn't shout—it 
-                whispers with confidence. Our approach is rooted in understanding that 
+                We believe in the power of simplicity. True beauty doesn't shout—it
+                whispers with confidence. Our approach is rooted in understanding that
                 each client is unique, with individual needs, preferences, and beauty goals.
               </p>
             </motion.div>
@@ -189,6 +242,7 @@ const Home = () => {
         </div>
       </section>
 
+      <div className="brand-divider max-w-xs mx-auto"></div>
 
       {/* Testimonials Carousel */}
       <section id="testimonials" className="py-24 px-4 bg-muted">
@@ -209,129 +263,166 @@ const Home = () => {
         </div>
       </section>
 
+
+
+      <div className="brand-divider max-w-xs mx-auto"></div>
+
       {/* Contact Section */}
       <section id="contact" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-heading font-bold text-center mb-16"
+            className="text-center mb-16"
           >
-            GET IN TOUCH
-          </motion.h2>
+            <div className="w-24 brand-divider mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
+              GET IN <span className="text-brand-gold">TOUCH</span>
+            </h2>
+            <p className="text-foreground/70 font-light max-w-xl mx-auto">
+              We'd love to hear from you. Book an appointment or send us a message and we'll get back to you soon.
+            </p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+            {/* Contact Form — takes 3 columns */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              className="lg:col-span-3"
             >
-              <h3 className="text-2xl font-heading font-bold mb-8">
-                SEND US A MESSAGE
-              </h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="h-12 border-foreground focus:ring-foreground"
-                  />
-                </div>
-                <div>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="h-12 border-foreground focus:ring-foreground"
-                  />
-                </div>
-                <div>
-                  <Textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={6}
-                    className="border-foreground focus:ring-foreground resize-none"
-                  />
-                </div>
-                <Button type="submit" size="lg" className="w-full">
-                  SEND MESSAGE
-                </Button>
-              </form>
+              <div className="border border-foreground/10 p-6 md:p-10 bg-background shadow-sm">
+                <h3 className="text-xl font-heading font-bold mb-1 flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-brand-gold" />
+                  SEND US A MESSAGE
+                </h3>
+                <p className="text-sm text-foreground/50 mb-8 font-light">All fields marked are required</p>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30" />
+                      <Input
+                        type="text"
+                        name="name"
+                        placeholder="Your Name *"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="h-12 pl-10 border-foreground/15 focus:border-brand-gold focus:ring-brand-gold/20 bg-transparent"
+                      />
+                    </div>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30" />
+                      <Input
+                        type="tel"
+                        name="phone"
+                        placeholder="Your Phone *"
+                        value={formData.phone || ''}
+                        onChange={handleChange}
+                        className="h-12 pl-10 border-foreground/15 focus:border-brand-gold focus:ring-brand-gold/20 bg-transparent"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30" />
+                      <Input
+                        type="email"
+                        name="email"
+                        placeholder="Your Email (optional)"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="h-12 pl-10 border-foreground/15 focus:border-brand-gold focus:ring-brand-gold/20 bg-transparent"
+                      />
+                    </div>
+                    <div className="relative">
+                      <select
+                        name="service"
+                        id="service-select"
+                        aria-label="Select service of interest"
+                        value={formData.service || ''}
+                        onChange={handleChange as any}
+                        className="w-full h-12 pl-4 pr-10 border border-foreground/15 bg-transparent text-sm font-body focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/20 outline-none appearance-none cursor-pointer text-foreground/70"
+                      >
+                        <option value="">Interested in... (optional)</option>
+                        <option value="hair">Hair Services</option>
+                        <option value="skin">Skin Treatments</option>
+                        <option value="nails">Nail Studio</option>
+                        <option value="makeup">Makeup</option>
+                        <option value="spa">Spa & Wellness</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30 rotate-90 pointer-events-none" />
+                    </div>
+                  </div>
+                  <div>
+                    <Textarea
+                      name="message"
+                      placeholder="Your Message *"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={5}
+                      className="border-foreground/15 focus:border-brand-gold focus:ring-brand-gold/20 resize-none bg-transparent"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full bg-foreground text-background hover:bg-brand-rose hover:text-white transition-all duration-300 h-12 text-sm tracking-wider"
+                  >
+                    SEND MESSAGE
+                  </Button>
+                </form>
+              </div>
             </motion.div>
 
-            {/* Contact Information */}
+            {/* Map — takes 2 columns */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="space-y-12"
+              className="lg:col-span-2 flex flex-col gap-6"
             >
-              <div>
-                <h3 className="text-2xl font-heading font-bold mb-8">
-                  VISIT US
-                </h3>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-xl font-heading font-bold mb-2">ADDRESS</h4>
-                    <p className="leading-relaxed font-light">
-                      A WING, SHOP NO 4, NAYADEEP APARTMENT,<br />
-                      NEAR KALINGA RESTAURANT, RAVI RAJ COMPLEX,<br />
-                      NEW LINK ROAD, ANDHERI WEST,<br />
-                      MUMBAI, MAHARASHTRA 400053
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-heading font-bold mb-2">PHONE</h4>
-                    <p className="font-light">(555) 123-4567</p>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-heading font-bold mb-2">EMAIL</h4>
-                    <p className="font-light">hello@blossomsalon.com</p>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-heading font-bold mb-2">HOURS</h4>
-                    <p className="font-light">
-                      Monday - Tuesday: 10:00 AM - 10:00 PM<br />
-                      Wednesday: Closed<br />
-                      Thursday - Sunday: 10:00 AM - 10:00 PM
-                    </p>
-                  </div>
+              <div className="flex-1 min-h-[350px] bg-muted border border-foreground/10 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3314616901635!2d72.82915063599928!3d19.136962889969418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b737f0afc9c5%3A0x6e21a61e214f4bde!2sBlossom%20Salon%2C%20Andheri%20West-%20Best%20Salon%20in%20Andheri%20West%2CSAB%20TV%20Rd%20%7C%20Hair%20%7C%20Skin%20%7C%20Nails%20%7C%20Academy!5e0!3m2!1sen!2sin!4v1761765114748!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Blossom Salon Location"
+                ></iframe>
+              </div>
+
+              {/* Compact Contact Info */}
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div className="flex flex-col items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-brand-gold" />
+                  <p className="text-[11px] font-light text-foreground/70 leading-relaxed">
+                    SHOP NO 4 & 5,<br />NYAYA DEEP SOC,<br />MUMBAI 400053
+                  </p>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <Phone className="w-4 h-4 text-brand-rose" />
+                  <a href="tel:+919892657908" className="text-[11px] font-light text-foreground/70 hover:text-brand-gold transition-colors">
+                    09892657908
+                  </a>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-brand-green" />
+                  <p className="text-[11px] font-light text-foreground/70">
+                    All days<br />10 AM – 10 PM
+                  </p>
                 </div>
               </div>
             </motion.div>
           </div>
-
-          {/* Map */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mt-16 h-96 bg-muted border-2 border-foreground"
-          >
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3314616901635!2d72.82915063599928!3d19.136962889969418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b737f0afc9c5%3A0x6e21a61e214f4bde!2sBlossom%20Salon%2C%20Andheri%20West-%20Best%20Salon%20in%20Andheri%20West%2CSAB%20TV%20Rd%20%7C%20Hair%20%7C%20Skin%20%7C%20Nails%20%7C%20Academy!5e0!3m2!1sen!2sin!4v1761765114748!5m2!1sen!2sin" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Blossom Salon Location"
-            ></iframe>
-          </motion.div>
         </div>
       </section>
     </div>
@@ -343,10 +434,10 @@ const StarRating = ({ rating = 5 }: { rating?: number }) => (
   <ul className="flex justify-center mb-6">
     {[...Array(5)].map((_, i) => (
       <li key={i} className="mx-0.5">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 576 512" 
-          className="w-5 h-5 fill-current text-amber-400"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 576 512"
+          className="w-5 h-5 fill-current text-brand-gold"
         >
           <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
         </svg>
@@ -362,7 +453,7 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: typeof testimonia
   const intervalRef = useRef<NodeJS.Timeout>();
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
     );
   };
@@ -397,7 +488,7 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: typeof testimonia
   const { prev: prevIndex, next: nextIndex } = getAdjacentIndexes(currentIndex);
 
   return (
-    <div 
+    <div
       className="relative w-full max-w-4xl mx-auto"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -472,9 +563,8 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: typeof testimonia
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentIndex ? 'bg-foreground' : 'bg-foreground/20'
-            }`}
+            className={`w-3 h-3 rounded-full transition-colors ${index === currentIndex ? 'bg-foreground' : 'bg-foreground/20'
+              }`}
             aria-label={`Go to testimonial ${index + 1}`}
           />
         ))}
