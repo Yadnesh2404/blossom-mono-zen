@@ -8,54 +8,70 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Pure monochrome design system - Black & White only */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    /* Premium Warm Luxury Design System */
+    --background: 36 33% 97%;
+    /* warm ivory */
+    --foreground: 20 10% 12%;
+    /* deep warm brown-black */
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: 36 30% 96%;
+    /* soft ivory card */
+    --card-foreground: 20 10% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 36 30% 96%;
+    --popover-foreground: 20 10% 12%;
 
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 20 10% 12%;
+    --primary-foreground: 36 33% 97%;
 
-    --secondary: 0 0% 100%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 36 20% 93%;
+    /* warm beige secondary */
+    --secondary-foreground: 20 10% 12%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 33 18% 93%;
+    /* soft warm muted */
+    --muted-foreground: 20 8% 45%;
 
-    --accent: 0 0% 0%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 20 10% 12%;
+    --accent-foreground: 36 33% 97%;
 
-    --destructive: 0 0% 0%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
+    --border: 30 15% 82%;
+    /* warm border */
+    --input: 30 15% 82%;
+    --ring: 40 47% 56%;
+    /* gold ring */
 
-    --radius: 0;
+    --radius: 0.75rem;
 
     /* Brand colors from logo */
     --brand-rose: 344 64% 50%;
     --brand-gold: 40 47% 56%;
     --brand-green: 108 30% 38%;
-    
+
+    /* Luxury accent palette */
+    --luxury-cream: 38 40% 95%;
+    --luxury-ivory: 40 33% 97%;
+    --luxury-beige: 33 22% 90%;
+    --luxury-warm: 30 25% 85%;
+    --luxury-gold-glow: 40 60% 70%;
+
     /* Typography */
     --font-heading: 'Poppins', sans-serif;
     --font-body: 'Inter', sans-serif;
-    
-    /* Shadows - using black with varying opacity */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    
+
+    /* Premium Shadows - warm-toned */
+    --shadow-sm: 0 1px 3px 0 rgba(45, 35, 25, 0.04), 0 1px 2px -1px rgba(45, 35, 25, 0.03);
+    --shadow-md: 0 4px 8px -1px rgba(45, 35, 25, 0.06), 0 2px 4px -2px rgba(45, 35, 25, 0.04);
+    --shadow-lg: 0 10px 20px -3px rgba(45, 35, 25, 0.08), 0 4px 6px -4px rgba(45, 35, 25, 0.04);
+    --shadow-xl: 0 20px 30px -5px rgba(45, 35, 25, 0.1), 0 8px 10px -6px rgba(45, 35, 25, 0.04);
+    --shadow-gold: 0 4px 14px -2px rgba(180, 155, 105, 0.15);
+
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-luxury: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
   }
 }
 
@@ -66,38 +82,55 @@ All colors MUST be HSL.
     -webkit-tap-highlight-color: transparent;
   }
 
-  html, body {
-    @apply bg-background text-foreground font-body antialiased;
+  html,
+  body {
+    @apply text-foreground font-body antialiased;
+    background-color: #F8F4EE;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 15% 15%, rgba(212, 184, 140, 0.18) 0%, transparent 70%),
+      radial-gradient(circle at 85% 85%, rgba(226, 201, 164, 0.16) 0%, transparent 70%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 244, 230, 0.20) 0%, transparent 80%),
+      linear-gradient(160deg, #F8F4EE 0%, #F3ECE3 100%);
+    background-attachment: fixed;
+    background-blend-mode: overlay, normal, normal, normal, normal;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
     position: relative;
   }
-  
+
   /* Prevent horizontal scroll on all elements */
   * {
     max-width: 100%;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     @apply font-bold tracking-tight;
+    color: hsl(var(--foreground));
   }
 }
 
 @layer utilities {
+
   /* Underline animation for links - gold brand accent */
   .link-underline {
     @apply relative inline-block;
   }
-  
+
   .link-underline::after {
     content: '';
     @apply absolute w-full h-[1.5px] bottom-0 left-0 scale-x-0 origin-bottom-right;
     background-color: hsl(var(--brand-gold));
     transition: transform 0.3s ease-out;
   }
-  
+
   .link-underline:hover::after {
     @apply scale-x-100 origin-bottom-left;
   }
@@ -105,38 +138,205 @@ All colors MUST be HSL.
   /* Brand gradient divider */
   .brand-divider {
     height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      hsl(var(--brand-gold) / 0.5),
-      hsl(var(--brand-rose) / 0.4),
-      hsl(var(--brand-gold) / 0.5),
-      transparent
-    );
+    background: linear-gradient(90deg,
+        transparent,
+        hsl(var(--brand-gold) / 0.5),
+        hsl(var(--brand-rose) / 0.4),
+        hsl(var(--brand-gold) / 0.5),
+        transparent);
   }
-  
+
+  /* Universal Lightweight Section Overlays */
+  /* Keeps the website feeling like one premium system while providing minimal depth */
+  .bg-luxury {
+    background: transparent;
+  }
+
+  .bg-luxury-glow {
+    background: radial-gradient(circle at center, hsl(var(--luxury-gold-glow) / 0.015) 0%, transparent 70%);
+  }
+
+  .bg-luxury-muted {
+    background: linear-gradient(180deg, hsl(var(--luxury-beige) / 0.15) 0%, transparent 100%);
+  }
+
+  /* Gentle Brown Fade Gradient (e.g. for dark editorial sections or contrast) */
+  .bg-editorial-dark {
+    background: linear-gradient(145deg,
+        hsl(var(--foreground)) 0%,
+        hsl(25 15% 15%) 100%);
+    color: hsl(var(--luxury-ivory));
+  }
+
+  /* Premium card style */
+  .card-luxury {
+    background: linear-gradient(145deg,
+        hsl(var(--luxury-ivory)) 0%,
+        hsl(var(--card)) 100%);
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-luxury);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-luxury::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, hsl(var(--luxury-gold-glow) / 0.05), transparent 70%);
+    pointer-events: none;
+  }
+
+  .card-luxury:hover {
+    box-shadow:
+      var(--shadow-lg),
+      0 0 0 1px hsl(var(--brand-gold) / 0.15),
+      0 10px 40px -10px hsl(var(--luxury-gold-glow) / 0.2);
+    border-color: hsl(var(--brand-gold) / 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Premium CTA section */
+  .cta-luxury {
+    background: linear-gradient(170deg, transparent 0%, hsl(var(--luxury-beige) / 0.15) 100%);
+  }
+
+  /* Premium Input Style replacing plain white/50 */
+  .input-luxury {
+    background: linear-gradient(150deg, hsl(var(--luxury-ivory) / 0.6) 0%, hsl(var(--luxury-cream) / 0.4) 100%);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .input-luxury:focus,
+  .input-luxury:hover {
+    background: linear-gradient(150deg, hsl(var(--luxury-ivory) / 0.8) 0%, hsl(var(--luxury-cream) / 0.5) 100%);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(200, 170, 110, 0.08);
+    /* Soft shadow depth */
+  }
+
+  /* Premium button style */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm font-medium tracking-wider uppercase transition-all duration-300;
+    border: 1.5px solid hsl(var(--foreground) / 0.85);
+    color: hsl(var(--foreground) / 0.85);
+    border-radius: 9999px;
+    background: transparent;
+  }
+
+  .btn-luxury:hover {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    box-shadow: var(--shadow-gold);
+    transform: scale(1.02);
+  }
+
+  /* Premium gradient button */
+  .btn-luxury-gold {
+    @apply inline-flex items-center justify-center px-10 py-3.5 text-xs font-semibold tracking-widest uppercase text-white rounded-full transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--brand-gold)), hsl(var(--brand-rose)));
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-luxury-gold:hover {
+    box-shadow: var(--shadow-xl);
+    transform: scale(1.03);
+  }
+
+  /* Trust signal badge */
+  .trust-badge {
+    @apply flex items-center gap-2;
+  }
+
+  .trust-badge-icon {
+    @apply w-4 h-4 flex-shrink-0;
+    color: hsl(var(--brand-gold));
+    filter: drop-shadow(0 0 3px hsl(var(--brand-gold) / 0.25));
+  }
+
+  .trust-badge-text {
+    @apply text-xs font-medium tracking-wider uppercase;
+    color: hsl(var(--foreground) / 0.5);
+  }
+
+  /* Premium section heading */
+  .section-heading-luxury {
+    @apply text-3xl md:text-5xl font-heading font-bold mb-6;
+    color: hsl(var(--foreground) / 0.9);
+  }
+
+  .section-subheading-luxury {
+    @apply text-sm md:text-base tracking-[0.25em] uppercase font-light mb-8;
+    color: hsl(var(--foreground) / 0.45);
+  }
+
+  /* Gold accent text */
+  .text-gold-accent {
+    color: hsl(var(--brand-gold));
+  }
+
   /* Fade in animation */
   @keyframes fade-in {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
+
+  @keyframes soft-glow {
+
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+  }
+
   .animate-fade-in {
     animation: fade-in 0.6s ease-out;
   }
-  
+
+  .animate-soft-glow {
+    animation: soft-glow 4s ease-in-out infinite;
+  }
+
   /* Scale on hover */
   .hover-scale {
     @apply transition-transform duration-300;
   }
-  
+
   .hover-scale:hover {
     transform: scale(1.02);
+  }
+
+  /* Premium table styling */
+  .table-luxury thead tr {
+    background: linear-gradient(90deg,
+        hsl(var(--foreground)) 0%,
+        hsl(var(--foreground) / 0.95) 100%);
+  }
+
+  .table-luxury tbody tr {
+    transition: var(--transition-smooth);
+  }
+
+  .table-luxury tbody tr:hover {
+    background: hsl(var(--luxury-cream));
+  }
+
+  /* Decorative luxury accent line */
+  .luxury-accent-line {
+    height: 2px;
+    width: 60px;
+    background: linear-gradient(90deg, hsl(var(--brand-gold)), hsl(var(--brand-rose)));
   }
 }

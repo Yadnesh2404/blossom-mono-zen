@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
 import ServiceHero from "@/components/services/ServiceHero";
-import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
+import { ServiceCTAs } from "@/components/services/ServiceCTAs";
+import SkinServiceShowcase from "@/components/services/SkinServiceShowcase";
+import { Gem } from "lucide-react";
 
 const skinServices = [
   {
@@ -12,7 +14,7 @@ const skinServices = [
         men: true,
         women: true,
         kids: false,
-        price: "₹200",
+        price: "₹100",
       },
       {
         name: "Side & Jawline",
@@ -201,8 +203,9 @@ const Skin = () => {
       </ServiceHero>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-background/50">
-        <div className="max-w-7xl mx-auto">
+      <section id="services" className="py-20 px-4 bg-luxury relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-[400px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -210,39 +213,108 @@ const Skin = () => {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 text-foreground/90">
+            <h2 className="section-heading-luxury">
               SKIN CARE SERVICES
             </h2>
-            <p className="text-lg leading-relaxed max-w-3xl mx-auto font-light text-foreground/80 mb-4">
-              Rejuvenate your skin with our expert treatments designed for all skin types and concerns.
-              Our licensed estheticians use premium products to reveal your healthiest, most radiant skin.
+            <p className="text-lg leading-relaxed max-w-3xl mx-auto font-light text-foreground/70 mb-4">
+              Experience premium skin care services at Blossom Salon & Academy in Andheri West, Mumbai.
+              From glow facials and clean-ups to hydration care, beauty grooming and relaxing skin rituals,
+              our expert team delivers personalised luxury experiences using trusted premium products in a
+              calm and elegant environment.
             </p>
             <div className="w-24 brand-divider mx-auto mt-8"></div>
           </motion.div>
+
+          {/* Signature Treatments Showcase */}
+          <SkinServiceShowcase />
 
           <div className="max-w-6xl mx-auto">
             <PremiumServiceTable categories={skinServices} />
           </div>
 
+          {/* Luxury Skin Experience Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="mt-24 text-center max-w-3xl mx-auto"
+            className="mt-16 max-w-6xl mx-auto"
           >
-            <h3 className="text-2xl font-heading font-medium mb-6 text-foreground/90">
-              SKIN CONSULTATION
-            </h3>
-            <p className="text-foreground/70 font-light mb-8 leading-relaxed">
-              Our skin care experts will analyze your skin and recommend personalized treatments
-              to address your specific concerns and help you achieve your skincare goals.
-            </p>
-            <ConsultationCTA
-              onBookConsultation={() => {
-                window.location.href = '/#contact';
-              }}
-            />
+            {/* Gold divider */}
+            <div className="w-24 brand-divider mx-auto mb-12"></div>
+
+            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+              {/* Text content */}
+              <div className="flex-1 text-center lg:text-left">
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="inline-block text-xs font-medium tracking-[0.3em] uppercase text-brand-gold mb-4"
+                >
+                  Personalised Care
+                </motion.span>
+
+                <h3 className="text-2xl md:text-3xl font-heading font-bold mb-5 text-foreground/85 tracking-wide uppercase">
+                  Luxury Skin Experience
+                </h3>
+
+                <div className="luxury-accent-line mx-auto lg:mx-0 mb-6"></div>
+
+                <p className="text-foreground/60 font-light mb-8 leading-relaxed text-sm md:text-base max-w-xl mx-auto lg:mx-0">
+                  Discover personalised skin care and glow rituals designed to refresh, nourish and enhance your
+                  natural beauty. Our beauty experts help you choose the perfect facial and luxury skin care
+                  experience based on your skin type, glow goals and self-care preferences — all in a relaxing
+                  and elegant environment.
+                </p>
+
+                <button
+                  onClick={() => { window.location.href = '/#contact'; }}
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase"
+                >
+                  <span className="flex items-center gap-2">
+                    Book Your Luxury Experience
+                    <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                </button>
+
+                {/* Trust Signals */}
+                <div className="flex flex-wrap justify-center lg:justify-start gap-6 mt-8">
+                  {[
+                    'Premium Hygiene',
+                    'Expert Beauty Team',
+                    'Trusted in Andheri West',
+                  ].map((label) => (
+                    <div key={label} className="trust-badge">
+                      <Gem className="trust-badge-icon" />
+                      <span className="trust-badge-text">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Luxury image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 1, 0.5, 1] }}
+                viewport={{ once: true }}
+                className="flex-shrink-0 w-full max-w-sm lg:w-[380px]"
+              >
+                <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[3/4] border border-brand-gold/15">
+                  <img
+                    src="/images/services/SKIN/luxury glow rituals.png"
+                    alt="Luxury Glow Rituals at Blossom Salon"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>

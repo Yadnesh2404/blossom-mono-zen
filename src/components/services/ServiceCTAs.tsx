@@ -11,26 +11,21 @@ interface ServiceCTAsProps {
 export const ServiceCTAs = ({ onViewServices, onBookNow, variant = 'default', className = '' }: ServiceCTAsProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className={`mt-8 flex flex-wrap justify-center gap-4 ${className}`}
+      transition={{ duration: 0.3, delay: 0.1, ease: 'easeOut' }}
+      className={`mt-2 flex flex-wrap justify-center gap-4 ${className}`}
     >
-      <Button 
-        variant={variant === 'default' ? 'outline' : 'outline'}
-        size="lg"
-        className={`px-8 py-3 text-base rounded-full font-medium ${variant === 'default' ? 'bg-transparent text-white border-2 border-white hover:bg-white/10' : 'border-2 border-white text-white hover:bg-white/10'}`}
-        onClick={onViewServices}
-      >
-        View Services
-      </Button>
-      <Button 
-        variant="outline"
-        size="lg"
-        className="px-8 py-3 text-base rounded-full font-medium bg-transparent text-white border-2 border-white hover:bg-white/10 hover:text-white"
+      <Button
+        className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase"
         onClick={onBookNow}
       >
-        Book Now
+        <span className="flex items-center gap-2">
+          Book Now
+          <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </span>
       </Button>
     </motion.div>
   );
@@ -38,12 +33,16 @@ export const ServiceCTAs = ({ onViewServices, onBookNow, variant = 'default', cl
 
 export const ConsultationCTA = ({ onBookConsultation }: { onBookConsultation: () => void }) => {
   return (
-    <Button 
-      variant="outline"
-      className="border-2 border-foreground/90 text-foreground/90 px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-foreground hover:text-background transition-all duration-300 rounded-full"
+    <Button
+      className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase mt-2"
       onClick={onBookConsultation}
     >
-      Book Your Consultation
+      <span className="flex items-center gap-2">
+        Book Your Makeup Experience
+        <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </span>
     </Button>
   );
 };

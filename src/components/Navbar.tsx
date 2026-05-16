@@ -14,9 +14,9 @@ const Navbar = () => {
   const isHome = location.pathname === "/";
 
   const serviceLinks = [
+    { name: "HAIR", path: "/services/hair" },
     { name: "SKIN", path: "/services/skin" },
     { name: "NAILS", path: "/services/nails" },
-    { name: "HAIR", path: "/services/hair" },
     { name: "MAKEUP", path: "/services/makeup" },
     { name: "SPA", path: "/services/spa" },
   ];
@@ -70,31 +70,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-background border-b border-foreground">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md" style={{ borderBottom: '1px solid hsl(30 15% 82% / 0.6)' }}>
       <div className="brand-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
-          {/* Logo */}
-          <div className="md:flex-none">
-            <Link to="/" className="flex items-center">
+          {/* Logo + SEO Tagline */}
+          <div className="md:flex-none md:flex-1 flex items-center gap-6">
+            <Link to="/" className="flex items-center flex-shrink-0">
               <img
                 src="/images/logo.png"
-                alt="Blossom Salon"
+                alt="Blossom Salon - Luxury Hair, Skin & Nail Salon in Andheri West"
                 className="h-12 md:h-[120px] w-auto"
               />
             </Link>
+            <h1 className="hidden md:block text-xs tracking-[0.2em] text-foreground/35 font-light leading-relaxed uppercase">
+              Luxury Hair, Skin &amp; Nail Salon in Andheri West
+            </h1>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <button
-              onClick={() => handleNavClick("about")}
-              className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
-              aria-label="About"
-            >
-              ABOUT
-            </button>
-
             {/* Services Dropdown */}
             <div
               className="relative"
@@ -117,7 +112,8 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-44 bg-background border border-foreground shadow-lg z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 rounded-xl overflow-hidden z-50"
+                    style={{ background: 'linear-gradient(145deg, hsl(40 33% 97%), hsl(36 30% 96%))', boxShadow: '0 10px 30px -5px rgba(45,35,25,0.12)', border: '1px solid hsl(30 15% 82% / 0.5)' }}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="services-menu"
@@ -126,7 +122,7 @@ const Navbar = () => {
                       <Link
                         key={link.path}
                         to={link.path}
-                        className="block px-5 py-3 text-sm font-medium text-left hover:bg-foreground hover:text-background transition-colors w-full"
+                        className="block px-5 py-3 text-sm font-medium text-left hover:bg-brand-gold/10 hover:text-brand-gold transition-colors duration-200 w-full"
                         role="menuitem"
                       >
                         {link.name}
@@ -136,6 +132,14 @@ const Navbar = () => {
                 )}
               </AnimatePresence>
             </div>
+
+            <button
+              onClick={() => handleNavClick("about")}
+              className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
+              aria-label="About"
+            >
+              ABOUT
+            </button>
 
             <button
               onClick={() => handleNavClick("testimonials")}
@@ -154,7 +158,7 @@ const Navbar = () => {
 
             <button
               onClick={() => handleNavClick("contact")}
-              className="hidden md:flex items-center ml-6 bg-brand-rose text-white hover:bg-brand-rose/90 transition-colors h-10 px-4 py-2 text-sm font-medium"
+              className="flex items-center ml-6 bg-brand-rose text-white hover:bg-brand-rose/90 transition-all duration-300 h-10 px-5 py-2 text-sm font-medium tracking-wider rounded-full shadow-sm hover:shadow-md"
               aria-label="Book an appointment"
             >
               <Calendar className="w-4 h-4 mr-2" />
@@ -283,7 +287,7 @@ const Navbar = () => {
                 >
                   <button
                     onClick={() => handleNavClick("contact")}
-                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-colors hover:bg-brand-rose/90"
+                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 rounded-full"
                   >
                     <Calendar className="w-4 h-4" />
                     BOOK NOW
