@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
 const images = [
-    "/images/gallery/image 1.JPG",
-    "/images/gallery/image 2.JPG",
-    "/images/gallery/image 3.JPG",
-    "/images/gallery/image 4.jpg",
+    "/images/gallery/image-1.JPG",
+    "/images/gallery/image-2.JPG",
+    "/images/gallery/image-3.JPG",
+    "/images/gallery/image-4.jpg",
 ];
 
 export default function EventGallery() {
