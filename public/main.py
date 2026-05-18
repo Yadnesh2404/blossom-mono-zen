@@ -3,7 +3,7 @@ from moviepy import VideoFileClip
 from pathlib import Path
 
 # Your folder
-FOLDER = Path("videos")
+FOLDER = Path("images/hero")
 
 # Supported formats
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}

@@ -287,6 +287,7 @@ export default function BlossomMoments() {
 
   return (
     <section 
+      id="blossom-moments"
       className="py-16 md:py-24 relative overflow-hidden" 
       style={{ background: "linear-gradient(180deg, #fdfbf7 0%, #f7f4eb 60%, #fdfbf7 100%)" }}
     >

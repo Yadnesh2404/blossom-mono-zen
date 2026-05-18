@@ -145,7 +145,7 @@ const Navbar = () => {
             </button>
 
             <button
-              onClick={() => handleNavClick("testimonials")}
+              onClick={() => handleNavClick("blossom-moments")}
               className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
               aria-label="Testimonials"
             >
@@ -271,7 +271,7 @@ const Navbar = () => {
 
                 {/* TESTIMONIALS */}
                 <button
-                  onClick={() => handleNavClick("testimonials")}
+                  onClick={() => handleNavClick("blossom-moments")}
                   className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
                   style={{
                     touchAction: 'manipulation',
