@@ -6,16 +6,16 @@ import { heroImages } from "@/lib/hero-images";
 
 const slides = [
   {
+    ...heroImages.hair,
+    link: "/services/hair"
+  },
+  {
     ...heroImages.skin,
     link: "/services/skin"
   },
   {
     ...heroImages.nails,
     link: "/services/nails"
-  },
-  {
-    ...heroImages.hair,
-    link: "/services/hair"
   },
   {
     ...heroImages.makeup,

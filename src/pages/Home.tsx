@@ -125,7 +125,7 @@ const Home = () => {
       <HeroCarousel />
 
       {/* Welcome Section */}
-      <section className="py-16 md:py-24 px-4 bg-luxury relative overflow-hidden">
+      <section className="pt-0 pb-0 px-4 bg-luxury relative overflow-hidden">
         {/* Subtle decorative glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.06),transparent)] pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -134,14 +134,14 @@ const Home = () => {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="w-24 h-[2px] mx-auto mb-8 brand-divider"
+            className="w-24 h-[2px] mx-auto mt-4 mb-4 md:mb-6 brand-divider"
           />
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-heading font-bold mb-6"
+            className="text-3xl md:text-5xl font-heading font-bold mb-2"
           >
             WELCOME TO <span className="text-brand-gold">BLOSSOM SALON & ACADEMY</span>
           </motion.h2>
@@ -150,7 +150,7 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
-            className="text-sm md:text-base tracking-[0.25em] uppercase text-foreground/45 font-light mb-8"
+            className="text-xs md:text-sm tracking-[0.25em] uppercase text-foreground/45 font-light mb-4 md:mb-6"
           >
             Luxury Unisex Salon in Andheri West, Mumbai
           </motion.p>
@@ -159,7 +159,7 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
             viewport={{ once: true }}
-            className="text-lg md:text-xl leading-relaxed mb-12 font-light"
+            className="text-base md:text-lg leading-relaxed mb-6 font-light"
           >
             Blossom Salon & Academy offers expert hair, skin, nail and beauty services in a luxurious and
             relaxing environment in the heart of Andheri West. Conveniently located near SAB TV Tower,
@@ -171,7 +171,7 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="text-base md:text-lg leading-relaxed mb-12 font-light text-foreground/65 italic"
+            className="text-sm md:text-base leading-relaxed mb-8 font-light text-foreground/65 italic"
           >
             At Blossom, every appointment is designed to deliver elegance, comfort, confidence and a truly
             premium self-care experience.

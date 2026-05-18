@@ -77,7 +77,7 @@ export default function MomentsGallery({
     };
 
     return (
-        <section className="py-16 md:py-24 px-4 relative">
+        <section className="pt-0 pb-16 md:pb-24 px-4 relative">
             {/* Restrained Luxury Background Effects - No continuous motion */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#fcfaf7] via-[#f7f4eb]/60 to-[#fdfbf7] pointer-events-none" />
             <div className="absolute top-20 left-20 w-[400px] h-[400px] bg-[radial-gradient(circle,hsl(40_60%_70%/0.04),transparent_60%)] blur-3xl pointer-events-none" />

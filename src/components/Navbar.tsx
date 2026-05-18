@@ -78,7 +78,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo + SEO Tagline */}
-          <div className="md:flex-none md:flex-1 flex items-center gap-6">
+          <div className="md:flex-none md:flex-1 flex items-center gap-3 md:gap-6">
             <Link to="/" className="flex items-center flex-shrink-0">
               <img
                 src="/images/logo.png"
@@ -86,7 +86,7 @@ const Navbar = () => {
                 className="h-12 md:h-[120px] w-auto"
               />
             </Link>
-            <h1 className="hidden md:block text-xs tracking-[0.2em] text-foreground/35 font-light leading-relaxed uppercase">
+            <h1 className="flex-1 text-[0.5rem] md:text-xs tracking-[0.1em] md:tracking-[0.2em] text-foreground/40 font-light leading-snug md:leading-relaxed uppercase">
               Luxury Hair, Skin &amp; Nail Salon in Andheri West
             </h1>
           </div>
