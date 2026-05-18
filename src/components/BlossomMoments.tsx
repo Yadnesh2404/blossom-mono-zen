@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState, useCallback, memo } from "react";
+import { Volume2, VolumeX } from "lucide-react";
 
 const videos = [
   { webm: "/videos_webm/VN20251130_173703_nail.webm", mp4: "/videos_mp4/VN20251130_173703_nail.mp4", label: "Nail Art" },
@@ -19,7 +20,9 @@ const LazyVideo = memo(({
   mp4, 
   label, 
   idx,
-  isCenter, 
+  isCenter,
+  isMuted,
+  onToggleMute,
   onCycleComplete 
 }: { 
   webm: string; 
@@ -27,6 +30,8 @@ const LazyVideo = memo(({
   label: string; 
   idx: number;
   isCenter: boolean; 
+  isMuted: boolean;
+  onToggleMute: (e: React.MouseEvent) => void;
   onCycleComplete: (idx: number) => void;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -104,17 +109,26 @@ const LazyVideo = memo(({
       <div className="absolute inset-0 ring-1 ring-inset ring-brand-gold/0 group-hover:ring-brand-gold/30 transition-all duration-300 rounded-[1.25rem] z-20 pointer-events-none" />
 
       {/* Service label at bottom */}
-      <div className="absolute bottom-0 inset-x-0 z-20 px-4 pb-4 pointer-events-none">
+      <div className="absolute bottom-0 inset-x-0 z-20 p-4 flex justify-between items-end pointer-events-none">
         <span className="text-white/80 text-[10px] tracking-[0.2em] uppercase font-light">
           {label}
         </span>
+        {isCenter && (
+          <button 
+            onClick={onToggleMute}
+            className="pointer-events-auto p-2 rounded-full bg-black/20 backdrop-blur-sm text-white/90 hover:bg-black/40 hover:text-white transition-all duration-300"
+            aria-label={isMuted ? "Unmute video" : "Mute video"}
+          >
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+          </button>
+        )}
       </div>
 
       {isVisible ? (
         <video
           ref={videoRef}
           autoPlay={isCenter}
-          muted
+          muted={isMuted}
           playsInline
           preload={isCenter ? "auto" : "metadata"}
           className="w-full h-full object-cover"
@@ -136,6 +150,7 @@ export default function BlossomMoments() {
   const [centerChildIndex, setCenterChildIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isGlobalMuted, setIsGlobalMuted] = useState(true);
   const lastScrollTime = useRef<number>(0);
 
   const getCenterIdx = useCallback(() => {
@@ -262,18 +277,18 @@ export default function BlossomMoments() {
       const targetEl = el.children[targetIdx] as HTMLElement;
       const scrollPos = targetEl.offsetLeft - el.clientWidth / 2 + targetEl.offsetWidth / 2;
       el.scrollTo({ left: scrollPos, behavior: "smooth" });
-      lastScrollTime.current = Date.now() + 1000;
     }
   };
+
+  const handleToggleMute = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsGlobalMuted(prev => !prev);
+  }, []);
 
   return (
     <section 
       className="py-16 md:py-24 relative overflow-hidden" 
       style={{ background: "linear-gradient(180deg, #fdfbf7 0%, #f7f4eb 60%, #fdfbf7 100%)" }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
-      onTouchEnd={() => setIsPaused(false)}
     >
       {/* Ambient background glows */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle,hsl(40_60%_70%/0.05),transparent_60%)] blur-3xl pointer-events-none" />
@@ -305,6 +320,10 @@ export default function BlossomMoments() {
           transition={{ duration: 0.5, delay: 0.12 }}
           viewport={{ once: true }}
           className="relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
         >
           <div
             ref={scrollRef}
@@ -318,6 +337,8 @@ export default function BlossomMoments() {
                 label={vid.label} 
                 idx={idx}
                 isCenter={idx === centerChildIndex}
+                isMuted={isGlobalMuted}
+                onToggleMute={handleToggleMute}
                 onCycleComplete={handleCycleComplete}
               />
             ))}

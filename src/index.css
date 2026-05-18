@@ -95,7 +95,7 @@ All colors MUST be HSL.
     background-blend-mode: overlay, normal, normal, normal, normal;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
     position: relative;
   }
 
