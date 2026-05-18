@@ -171,36 +171,18 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="text-sm md:text-base leading-relaxed mb-8 font-light text-foreground/65 italic"
+            className="text-sm md:text-base leading-relaxed mb-4 font-light text-foreground/65 italic"
           >
             At Blossom, every appointment is designed to deliver elegance, comfort, confidence and a truly
             premium self-care experience.
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Button asChild size="lg" className="rounded-full px-8 tracking-wider text-sm">
-              <Link to="/services/hair">EXPLORE SERVICES</Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full px-8 tracking-wider text-sm border-foreground/20 hover:bg-brand-rose hover:text-white hover:border-brand-rose transition-all duration-300"
-              onClick={(e) => {
-                e.preventDefault();
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              BOOK APPOINTMENT
-            </Button>
-          </motion.div>
+            className="w-24 h-[2px] mx-auto mt-2 mb-6 brand-divider"
+          />
 
           {/* Trust Signals */}
 
@@ -296,7 +278,7 @@ const Home = () => {
       <div className="brand-divider max-w-xs mx-auto"></div>
 
       {/* Testimonials Carousel */}
-      <section id="testimonials" className="py-16 md:py-24 px-4 bg-luxury-glow relative overflow-hidden">
+      <section id="testimonials" className="pt-10 md:pt-14 pb-4 px-4 bg-luxury-glow relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-[500px] h-[300px] bg-[radial-gradient(ellipse,hsl(344_64%_50%/0.03),transparent)] pointer-events-none" />
         <div className="max-w-5xl mx-auto relative z-10">
           <motion.div
@@ -304,14 +286,14 @@ const Home = () => {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="w-24 h-[2px] mx-auto mb-6 brand-divider"
+            className="w-24 h-[2px] mx-auto mb-4 brand-divider"
           />
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-heading font-bold text-center mb-16"
+            className="text-3xl md:text-4xl font-heading font-bold text-center mb-8"
           >
             WHAT OUR <span className="text-brand-gold">CLIENTS</span> SAY
           </motion.h2>
@@ -322,12 +304,8 @@ const Home = () => {
         </div>
       </section>
 
-
-
-      <div className="brand-divider max-w-xs mx-auto"></div>
-
       {/* Contact Section */}
-      <section id="contact" className="py-16 md:py-24 px-4 bg-luxury relative overflow-hidden">
+      <section id="contact" className="pt-8 md:pt-12 pb-16 md:pb-24 px-4 bg-luxury relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div

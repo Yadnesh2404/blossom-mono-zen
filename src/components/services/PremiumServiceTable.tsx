@@ -107,16 +107,7 @@ const PremiumServiceTable: React.FC<PremiumServiceTableProps> = ({ categories, s
             </div>
           </div>
 
-          {showBookButton && (
-            <div className="flex justify-end">
-              <button
-                onClick={() => { window.location.href = '/#contact'; }}
-                className="mt-4 btn-luxury text-xs sm:text-sm w-full sm:w-auto text-center"
-              >
-                Book Appointment
-              </button>
-            </div>
-          )}
+
         </motion.div>
       ))}
     </div>

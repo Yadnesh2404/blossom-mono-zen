@@ -7,23 +7,15 @@ import { Gem } from "lucide-react";
 import HairServiceShowcase from "@/components/services/HairServiceShowcase";
 const hairServices = [
   {
-    title: "Hair Services — Men",
+    title: "Hair Services",
     services: [
       {
-        name: "Hair Cut (Master Stylist)",
-        description: "Precision cut by our master-level stylist",
+        name: "Hair Cut",
+        description: "Precision cut by our expert stylists",
         men: true,
-        women: false,
+        women: true,
         kids: false,
-        price: "₹1,500",
-      },
-      {
-        name: "Hair Cut (Sr. Stylist)",
-        description: "Expert cut by our senior stylist",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹2,000",
+        price: "₹1,200",
       },
       {
         name: "Beard Crafting",
@@ -60,7 +52,7 @@ const hairServices = [
     ],
   },
   {
-    title: "Colour for Men",
+    title: "Hair Colour",
     services: [
       {
         name: "Moustache / Side Locks",
@@ -82,7 +74,7 @@ const hairServices = [
         name: "Touch Up",
         description: "Root touch-up colour to cover greys",
         men: true,
-        women: false,
+        women: true,
         kids: false,
         price: "₹1,800 onwards",
       },
@@ -90,7 +82,7 @@ const hairServices = [
         name: "Global Colour",
         description: "Complete head-to-tip colour transformation",
         men: true,
-        women: false,
+        women: true,
         kids: false,
         price: "₹2,500 onwards",
       },
@@ -98,7 +90,7 @@ const hairServices = [
         name: "Highlights",
         description: "Dimensional highlights for added texture",
         men: true,
-        women: false,
+        women: true,
         kids: false,
         price: "₹3,000 onwards",
       },
@@ -164,7 +156,7 @@ const hairServices = [
         men: true,
         women: true,
         kids: false,
-        price: "₹3,000",
+        price: "₹3,000 onwards",
       },
       {
         name: "QOD Cysteine",
@@ -172,7 +164,7 @@ const hairServices = [
         men: true,
         women: true,
         kids: false,
-        price: "₹3,000",
+        price: "₹3,000 onwards",
       },
       {
         name: "Botox",
@@ -180,78 +172,11 @@ const hairServices = [
         men: true,
         women: true,
         kids: false,
-        price: "₹3,500",
+        price: "₹3,500 onwards",
       },
     ],
   },
-  {
-    title: "Wax for Men",
-    services: [
-      {
-        name: "Forehead",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹250",
-      },
-      {
-        name: "Side & Jawline",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹300",
-      },
-      {
-        name: "Full Face",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹650",
-      },
-      {
-        name: "Underarms",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹350",
-      },
-      {
-        name: "Full Arms / Stomach",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹750",
-      },
-      {
-        name: "Full Arms & Underarms",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹1,000",
-      },
-      {
-        name: "Half Legs Front/Back",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹750",
-      },
-      {
-        name: "Full Legs Front/Back",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹1,000",
-      },
-      {
-        name: "Full Body",
-        men: true,
-        women: false,
-        kids: false,
-        price: "₹5,000",
-      },
-    ],
-  },
+
 ];
 
 const Hair = () => {
@@ -282,7 +207,7 @@ const Hair = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="text-center mb-20"
+            className="text-center mb-6"
           >
             <h2 className="section-heading-luxury">
               HAIR SERVICES
@@ -341,24 +266,7 @@ const Hair = () => {
             At Blossom Salon & Academy in Andheri West, Mumbai, our expert stylists create premium hair
             experiences tailored for modern elegance and long-lasting beauty.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <button
-              className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase"
-              onClick={() => { window.location.href = '/#contact'; }}
-            >
-              <span className="flex items-center gap-2">
-                BOOK YOUR HAIR EXPERIENCE
-                <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </button>
-          </motion.div>
+
 
           {/* Trust Signals */}
           <motion.div

@@ -128,7 +128,7 @@ export default function HairServiceShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
             viewport={{ once: true, margin: "-50px" }}
-            className="mb-20"
+            className="mb-6"
         >
             {/* Section Header */}
             <div className="text-center mb-12">

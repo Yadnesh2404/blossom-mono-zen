@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Home from "./pages/Home";
 
 // Lazy-loaded routes — only fetched when the user navigates to them
@@ -47,6 +48,7 @@ const App = () => (
             </Suspense>
           </main>
           <Footer />
+          <WhatsAppButton />
         </div>
       </BrowserRouter>
     </TooltipProvider>

@@ -203,7 +203,7 @@ const Nails = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="text-center mb-20"
+            className="text-center mb-6"
           >
             <h2 className="section-heading-luxury">
               NAIL CARE SERVICES
@@ -262,24 +262,7 @@ const Nails = () => {
             beauty and long-lasting perfection. Experience luxury nail care in a relaxing salon environment
             in Andheri West, Mumbai.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <button
-              className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase"
-              onClick={() => { window.location.href = '/#contact'; }}
-            >
-              <span className="flex items-center gap-2">
-                BOOK YOUR NAIL EXPERIENCE
-                <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </button>
-          </motion.div>
+
 
           {/* Trust Signals */}
           <motion.div
