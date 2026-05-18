@@ -70,7 +70,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md" style={{ borderBottom: '1px solid hsl(30 15% 82% / 0.6)' }}>
+    <nav 
+      className={`sticky top-0 z-50 bg-background/95 ${isOpen ? 'md:backdrop-blur-md' : 'backdrop-blur-md'}`} 
+      style={{ borderBottom: '1px solid hsl(30 15% 82% / 0.6)' }}
+    >
       <div className="brand-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
@@ -168,10 +171,18 @@ const Navbar = () => {
 
           {/* Mobile Menu Button - Only show on mobile */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 -mr-2"
+            onClick={(e) => {
+              if (e.defaultPrevented) return;
+              setIsOpen(!isOpen);
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            }}
+            className="md:hidden p-2 -mr-2 touch-manipulation"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
+            style={{ touchAction: 'manipulation' }}
           >
             {isOpen ? (
               <X className="h-6 w-6" aria-hidden="true" />
@@ -188,37 +199,45 @@ const Navbar = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden overflow-hidden"
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="md:hidden overflow-hidden touch-manipulation"
+              style={{ 
+                touchAction: 'manipulation',
+                willChange: 'height, opacity',
+                transform: 'translateZ(0)'
+              }}
             >
               <div className="brand-divider"></div>
               <div className="py-6 px-6 space-y-1">
                 {/* ABOUT */}
                 <motion.button
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 }}
+                  transition={{ delay: 0.02, duration: 0.15 }}
                   onClick={() => handleNavClick("about")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors"
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   ABOUT
                 </motion.button>
 
                 {/* SERVICES — Accordion */}
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="border-b border-foreground/5"
+                  transition={{ delay: 0.04, duration: 0.15 }}
+                  className="border-b border-foreground/5 touch-manipulation"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <button
                     onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                    className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors"
+                    className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors touch-manipulation"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     SERVICES
                     <motion.div
                       animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.15 }}
                     >
                       <ChevronDown className="w-4 h-4" />
                     </motion.div>
@@ -229,21 +248,26 @@ const Navbar = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
+                        transition={{ duration: 0.15 }}
+                        className="overflow-hidden touch-manipulation"
+                        style={{ 
+                          touchAction: 'manipulation',
+                          willChange: 'height, opacity'
+                        }}
                       >
                         <div className="pl-4 pb-3 space-y-1">
                           {serviceLinks.map((link, i) => (
                             <motion.div
                               key={link.path}
-                              initial={{ opacity: 0, x: -10 }}
+                              initial={{ opacity: 0, x: -5 }}
                               animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: i * 0.05 }}
+                              transition={{ delay: i * 0.02, duration: 0.12 }}
                             >
                               <Link
                                 to={link.path}
                                 onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors"
+                                className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors touch-manipulation"
+                                style={{ touchAction: 'manipulation' }}
                               >
                                 <span className="w-4 h-[1px] bg-brand-gold/50"></span>
                                 {link.name}
@@ -258,36 +282,40 @@ const Navbar = () => {
 
                 {/* TESTIMONIALS */}
                 <motion.button
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 }}
+                  transition={{ delay: 0.06, duration: 0.15 }}
                   onClick={() => handleNavClick("testimonials")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors"
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   TESTIMONIALS
                 </motion.button>
 
                 {/* CONTACT */}
                 <motion.button
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.08, duration: 0.15 }}
                   onClick={() => handleNavClick("contact")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors"
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   CONTACT
                 </motion.button>
 
                 {/* BOOK NOW CTA */}
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="pt-4"
+                  transition={{ delay: 0.1, duration: 0.15 }}
+                  className="pt-4 touch-manipulation"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <button
                     onClick={() => handleNavClick("contact")}
-                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 rounded-full"
+                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 rounded-full touch-manipulation"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     <Calendar className="w-4 h-4" />
                     BOOK NOW

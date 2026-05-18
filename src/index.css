@@ -92,7 +92,6 @@ All colors MUST be HSL.
       radial-gradient(circle at 85% 85%, rgba(226, 201, 164, 0.16) 0%, transparent 70%),
       radial-gradient(ellipse at 50% 50%, rgba(255, 244, 230, 0.20) 0%, transparent 80%),
       linear-gradient(160deg, #F8F4EE 0%, #F3ECE3 100%);
-    background-attachment: fixed;
     background-blend-mode: overlay, normal, normal, normal, normal;
     width: 100%;
     max-width: 100%;
@@ -303,6 +302,12 @@ All colors MUST be HSL.
 
   .animate-fade-in {
     animation: fade-in 0.6s ease-out;
+  }
+
+  /* Pure CSS progress bar for carousels — replaces JS setInterval approach */
+  @keyframes progressFill {
+    from { width: 0%; }
+    to { width: 100%; }
   }
 
   .animate-soft-glow {

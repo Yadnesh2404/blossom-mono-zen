@@ -203,7 +203,7 @@ const Skin = () => {
       </ServiceHero>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-luxury relative overflow-hidden">
+      <section id="services" className="py-12 md:py-20 px-4 bg-luxury relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[400px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -238,7 +238,7 @@ const Skin = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="mt-16 max-w-6xl mx-auto"
+            className="mt-12 md:mt-16 max-w-6xl mx-auto"
           >
             {/* Gold divider */}
             <div className="w-24 brand-divider mx-auto mb-12"></div>
@@ -304,14 +304,14 @@ const Skin = () => {
                 viewport={{ once: true }}
                 className="flex-shrink-0 w-full max-w-sm lg:w-[380px]"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-[3/4] border border-brand-gold/15">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl border border-brand-gold/15">
                   <img
                     src="/images/services/SKIN/luxury glow rituals.png"
                     alt="Luxury Glow Rituals at Blossom Salon"
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto block object-contain"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
             </div>

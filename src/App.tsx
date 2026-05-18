@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,14 +7,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Hair from "./pages/Services/Hair";
-import Nails from "./pages/Services/Nails";
-import Makeup from "./pages/Services/Makeup";
-import Skin from "./pages/Services/Skin";
-import Spa from "./pages/Services/Spa";
-import NotFound from "./pages/NotFound";
+
+// Lazy-loaded routes — only fetched when the user navigates to them
+const Hair = lazy(() => import("./pages/Services/Hair"));
+const Nails = lazy(() => import("./pages/Services/Nails"));
+const Makeup = lazy(() => import("./pages/Services/Makeup"));
+const Skin = lazy(() => import("./pages/Services/Skin"));
+const Spa = lazy(() => import("./pages/Services/Spa"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
+
+// Minimal loading fallback that matches the site's luxury aesthetic
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-[60vh]">
+    <div className="w-8 h-8 border-2 border-brand-gold/30 border-t-brand-gold rounded-full animate-spin" />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -24,15 +34,17 @@ const App = () => (
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services/hair" element={<Hair />} />
-              <Route path="/services/skin" element={<Skin />} />
-              <Route path="/services/nails" element={<Nails />} />
-              <Route path="/services/makeup" element={<Makeup />} />
-              <Route path="/services/spa" element={<Spa />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services/hair" element={<Hair />} />
+                <Route path="/services/skin" element={<Skin />} />
+                <Route path="/services/nails" element={<Nails />} />
+                <Route path="/services/makeup" element={<Makeup />} />
+                <Route path="/services/spa" element={<Spa />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </main>
           <Footer />
         </div>

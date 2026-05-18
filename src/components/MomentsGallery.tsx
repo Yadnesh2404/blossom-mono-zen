@@ -20,6 +20,7 @@ const GalleryImage = memo(({ src, alt, className, onClick }: { src: string, alt:
             loading="lazy"
             decoding="async"
             className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            style={{ contentVisibility: 'auto' }}
         />
     </div>
 ));
@@ -76,7 +77,7 @@ export default function MomentsGallery({
     };
 
     return (
-        <section className="py-24 px-4 relative">
+        <section className="py-16 md:py-24 px-4 relative">
             {/* Restrained Luxury Background Effects - No continuous motion */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#fcfaf7] via-[#f7f4eb]/60 to-[#fdfbf7] pointer-events-none" />
             <div className="absolute top-20 left-20 w-[400px] h-[400px] bg-[radial-gradient(circle,hsl(40_60%_70%/0.04),transparent_60%)] blur-3xl pointer-events-none" />
@@ -99,9 +100,9 @@ export default function MomentsGallery({
                 <div className="grid grid-cols-1 lg:grid-cols-[45%_minmax(0,1fr)] gap-10 lg:gap-14">
 
                     {/* LEFT: FEATURED CARD (45% precise width in grid) */}
-                    <div className="flex flex-col h-full">
+                    <div className="flex flex-col h-full justify-center">
                         <div
-                            className="relative overflow-hidden rounded-[1.25rem] shadow-luxury border border-brand-gold/10 group cursor-pointer flex-grow bg-foreground/5 h-[600px] lg:h-full lg:min-h-[750px]"
+                            className="relative overflow-hidden rounded-[1.25rem] shadow-luxury border border-brand-gold/10 group cursor-pointer w-full bg-foreground/5"
                             onClick={() => openLightbox(images.indexOf(featuredImage))}
                         >
                             <div className="absolute inset-0 bg-gradient-to-t from-[#261f1a]/70 via-black/5 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500 z-10 pointer-events-none" />
@@ -110,9 +111,10 @@ export default function MomentsGallery({
                             <img
                                 src={featuredImage}
                                 alt="Featured Moment"
-                                loading="lazy"
+                                loading="eager"
+                                fetchPriority="high"
                                 decoding="async"
-                                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                                className="w-full h-auto block transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                             />
 
                             {/* Overlay Elements */}

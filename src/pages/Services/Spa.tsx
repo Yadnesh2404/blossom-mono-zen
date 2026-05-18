@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
 import ServiceHero from "@/components/services/ServiceHero";
-import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
+import { ServiceCTAs } from "@/components/services/ServiceCTAs";
 import { Gem, Flame, Flower2, Droplets } from "lucide-react";
 
 const spaServices = [
@@ -79,7 +79,7 @@ const Spa = () => {
       </ServiceHero>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-luxury relative overflow-hidden">
+      <section id="services" className="py-12 md:py-20 px-4 bg-luxury relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[400px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -111,7 +111,7 @@ const Spa = () => {
         </div>
       </section>
 
-      <section className="py-24 px-4 relative overflow-hidden z-0">
+      <section className="py-16 md:py-24 px-4 relative overflow-hidden z-0">
         {/* Restrained luxury background: warm ivory, gentle candlelight blur, practically invisible */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#fdfbf7]/90 to-[#f5f2eb]/40 pointer-events-none z-[-1]" />
         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[radial-gradient(circle,hsl(40_60%_70%/0.04),transparent_60%)] blur-3xl pointer-events-none z-[-1]" />

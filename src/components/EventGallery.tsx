@@ -9,7 +9,7 @@ const images = [
 
 export default function EventGallery() {
     return (
-        <section className="py-24 px-4 bg-luxury-glow relative overflow-hidden">
+        <section className="py-16 md:py-24 px-4 bg-luxury-glow relative overflow-hidden">
             {/* Subtle decorative glow */}
             <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
             <div className="max-w-7xl mx-auto relative z-10">
@@ -29,14 +29,14 @@ export default function EventGallery() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 md:h-[600px] lg:h-[700px]">
+                <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 md:h-[400px] lg:h-[700px]">
                     {/* Large Main Image (Spans 2 cols, 2 rows) */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 h-[300px] md:h-auto"
+                        className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 aspect-[4/3] md:aspect-auto"
                     >
                         <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent group-hover:from-black/5 transition-all duration-500 z-10" />
                         <img
@@ -44,6 +44,7 @@ export default function EventGallery() {
                             alt="Event highlight 1"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                         />
                     </motion.div>
 
@@ -53,14 +54,15 @@ export default function EventGallery() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                         viewport={{ once: true }}
-                        className="md:col-span-1 md:row-span-2 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 h-[300px] md:h-auto"
+                        className="md:col-span-1 md:row-span-2 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 aspect-[3/4] md:aspect-auto"
                     >
                         <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent group-hover:from-black/5 transition-all duration-500 z-10" />
                         <img
                             src={images[1]}
                             alt="Event highlight 2"
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                         />
                     </motion.div>
 
@@ -70,7 +72,7 @@ export default function EventGallery() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                         viewport={{ once: true }}
-                        className="md:col-span-1 md:row-span-1 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 h-[200px] md:h-auto"
+                        className="md:col-span-1 md:row-span-1 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 aspect-square md:aspect-auto"
                     >
                         <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent group-hover:from-black/5 transition-all duration-500 z-10" />
                         <img
@@ -78,6 +80,7 @@ export default function EventGallery() {
                             alt="Event highlight 3"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                         />
                     </motion.div>
 
@@ -87,7 +90,7 @@ export default function EventGallery() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                         viewport={{ once: true }}
-                        className="md:col-span-1 md:row-span-1 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 h-[200px] md:h-auto"
+                        className="md:col-span-1 md:row-span-1 relative overflow-hidden rounded-2xl shadow-lg group border border-brand-gold/10 aspect-square md:aspect-auto"
                     >
                         <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent group-hover:from-black/5 transition-all duration-500 z-10" />
                         <img
@@ -95,6 +98,7 @@ export default function EventGallery() {
                             alt="Event highlight 4"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                         />
                     </motion.div>
                 </div>

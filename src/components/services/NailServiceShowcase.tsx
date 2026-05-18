@@ -4,28 +4,28 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const showcaseServices = [
     {
-        image: "/images/services/NAILS/french chrome.png",
+        image: "/images/services/NAILS/french chrome.jpg",
         title: "French Chrome Nails",
         description:
             "Sleek French tips with a stunning chrome finish for a modern, high-shine look",
         badge: "Trending",
     },
     {
-        image: "/images/services/NAILS/manicure.png",
+        image: "/images/services/NAILS/manicure.jpg",
         title: "Luxury Manicure",
         description:
             "Complete hand pampering with cuticle care, exfoliation and a flawless polish finish",
         badge: "Most Popular",
     },
     {
-        image: "/images/services/NAILS/nail art.png",
+        image: "/images/services/NAILS/nail art.jpg",
         title: "Creative Nail Art",
         description:
             "Custom hand-painted designs and embellishments for truly unique nails",
         badge: "Signature",
     },
     {
-        image: "/images/services/NAILS/pedicure.png",
+        image: "/images/services/NAILS/pedicure.jpg",
         title: "Luxury Pedicure",
         description:
             "Indulge in a relaxing foot spa with deep exfoliation, cuticle care and a pristine polish finish",

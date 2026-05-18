@@ -1,16 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import HeroCarousel from "@/components/HeroCarousel";
 import MomentsGallery from "@/components/MomentsGallery";
-import { handleAnchorClick } from "@/lib/scroll-utils";
-// Using a high-quality color image from Pexels
-const aboutSalon = 'https://images.pexels.com/photos/3992871/pexels-photo-3992871.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2';
-import { ChevronLeft, ChevronRight, User, Phone, Mail, MessageSquare, MapPin, Clock, Gem } from "lucide-react";
+import BlossomMoments from "@/components/BlossomMoments";
+import { ChevronLeft, ChevronRight, User, Phone, Mail, MessageSquare, MapPin, Clock } from "lucide-react";
 
 const testimonials = [
   {
@@ -44,6 +42,12 @@ const testimonials = [
     service: "Precision Haircut"
   },
 ];
+
+type Testimonial = {
+  quote: string;
+  author: string;
+  service: string;
+};
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -121,7 +125,7 @@ const Home = () => {
       <HeroCarousel />
 
       {/* Welcome Section */}
-      <section className="py-24 px-4 bg-luxury relative overflow-hidden">
+      <section className="py-16 md:py-24 px-4 bg-luxury relative overflow-hidden">
         {/* Subtle decorative glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.06),transparent)] pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -207,7 +211,7 @@ const Home = () => {
       <MomentsGallery />
 
       {/* About Section */}
-      <section id="about" className="py-24 px-4 bg-luxury-muted relative overflow-hidden">
+      <section id="about" className="py-16 md:py-24 px-4 bg-luxury-muted relative overflow-hidden">
         {/* Subtle top glow */}
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
@@ -286,10 +290,13 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Blossom Moments Video Showcase */}
+      <BlossomMoments />
+
       <div className="brand-divider max-w-xs mx-auto"></div>
 
       {/* Testimonials Carousel */}
-      <section id="testimonials" className="py-24 px-4 bg-luxury-glow relative overflow-hidden">
+      <section id="testimonials" className="py-16 md:py-24 px-4 bg-luxury-glow relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-[500px] h-[300px] bg-[radial-gradient(ellipse,hsl(344_64%_50%/0.03),transparent)] pointer-events-none" />
         <div className="max-w-5xl mx-auto relative z-10">
           <motion.div
@@ -320,7 +327,7 @@ const Home = () => {
       <div className="brand-divider max-w-xs mx-auto"></div>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 px-4 bg-luxury relative overflow-hidden">
+      <section id="contact" className="py-16 md:py-24 px-4 bg-luxury relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
@@ -499,8 +506,8 @@ const StarRating = ({ rating = 5 }: { rating?: number }) => (
   </ul>
 );
 
-// Testimonial Carousel Component
-const TestimonialCarousel = ({ testimonials }: { testimonials: typeof testimonials }) => {
+// Testimonial Carousel Component - Memoized to prevent unnecessary re-renders
+const TestimonialCarousel = memo(({ testimonials }: { testimonials: Testimonial[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout>();
@@ -624,6 +631,7 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: typeof testimonia
       </div>
     </div>
   );
-};
+});
+TestimonialCarousel.displayName = 'TestimonialCarousel';
 
 export default Home;

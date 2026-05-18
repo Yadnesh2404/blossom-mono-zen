@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
 import ServiceHero from "@/components/services/ServiceHero";
-import { ServiceCTAs, ConsultationCTA } from "@/components/services/ServiceCTAs";
+import { ServiceCTAs } from "@/components/services/ServiceCTAs";
 import { Gem } from "lucide-react";
 
 const makeupServices = [
@@ -55,7 +55,7 @@ const Makeup = () => {
       </ServiceHero>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-luxury relative overflow-hidden">
+      <section id="services" className="py-12 md:py-20 px-4 bg-luxury relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[400px] h-[300px] bg-[radial-gradient(ellipse,hsl(40_60%_70%/0.05),transparent)] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -75,6 +75,37 @@ const Makeup = () => {
             <div className="w-24 brand-divider mx-auto mt-8"></div>
           </motion.div>
 
+          {/* Premium Visual Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="mb-16 md:mb-24 max-w-5xl mx-auto px-4 sm:px-0"
+          >
+            <div className="text-center mb-10">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold mb-4 text-foreground/90 uppercase tracking-wide">
+                Our Signature Makeup Experiences
+              </h3>
+              <p className="text-base md:text-lg font-light text-foreground/70 max-w-2xl mx-auto">
+                From bridal elegance to glamorous party looks, crafted for every special moment.
+              </p>
+            </div>
+            
+            <div className="relative rounded-2xl p-2 md:p-3 bg-gradient-to-br from-[#fdfbf7] to-[#f5f2eb] shadow-[0_10px_40px_rgba(184,149,82,0.08)] border border-brand-gold/10">
+              {/* Soft ambient glow */}
+              <div className="absolute -inset-1 bg-gradient-to-tr from-brand-gold/10 via-transparent to-brand-gold/10 blur-xl z-[-1] rounded-3xl" />
+              
+              <div className="relative rounded-xl overflow-hidden border border-black/5 bg-white">
+                <img
+                  src="/images/services/MAKEUP/makeup-visual-card.jpg"
+                  alt="Signature Makeup Experiences"
+                  className="w-full h-auto object-contain rounded-xl block" 
+                />
+              </div>
+            </div>
+          </motion.div>
+
           <div className="max-w-6xl mx-auto">
             <PremiumServiceTable categories={makeupServices} />
           </div>
@@ -84,7 +115,7 @@ const Makeup = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="mt-24 text-center max-w-3xl mx-auto"
+            className="mt-16 md:mt-24 text-center max-w-3xl mx-auto"
           >
             <div className="luxury-accent-line mx-auto mb-8"></div>
             <h3 className="text-2xl font-heading font-bold mb-6 text-foreground/85">
@@ -102,7 +133,7 @@ const Makeup = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 relative overflow-hidden z-0">
+      <section className="py-16 md:py-24 px-4 relative overflow-hidden z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#fdfbf7]/90 to-[#f5f2eb]/40 pointer-events-none z-[-1]" />
         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[radial-gradient(circle,hsl(40_60%_70%/0.04),transparent_60%)] blur-3xl pointer-events-none z-[-1]" />
         <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[radial-gradient(circle,hsl(30_20%_50%/0.02),transparent_60%)] blur-3xl pointer-events-none z-[-1]" />

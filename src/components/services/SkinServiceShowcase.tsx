@@ -4,28 +4,28 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const showcaseServices = [
     {
-        image: "/images/services/SKIN/hydra glow facial.png",
+        image: "/images/services/SKIN/hydra glow facial.jpg",
         title: "Hydra Glow Facial",
         description:
             "Deep hydration therapy for a luminous, dewy complexion",
         badge: "Most Popular",
     },
     {
-        image: "/images/services/SKIN/gold facial.png",
+        image: "/images/services/SKIN/gold facial.jpg",
         title: "Gold Facial",
         description:
             "Luxurious 24K gold-infused facial for radiant, youthful skin",
         badge: "Premium",
     },
     {
-        image: "/images/services/SKIN/body polishing.png",
+        image: "/images/services/SKIN/body polishing.jpg",
         title: "Body Polishing",
         description:
             "Full body exfoliation and polishing for silky smooth skin",
         badge: null,
     },
     {
-        image: "/images/services/SKIN/luxury glow rituals.png",
+        image: "/images/services/SKIN/luxury glow rituals.jpg",
         title: "Luxury Glow Rituals",
         description:
             "Multi-step luxury rituals designed to reveal your natural glow",
@@ -39,14 +39,11 @@ export default function SkinServiceShowcase() {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const progressInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const goTo = useCallback(
         (index: number) => {
             setDirection(index > current ? 1 : -1);
             setCurrent(index);
-            setProgress(0);
         },
         [current]
     );
@@ -54,7 +51,6 @@ export default function SkinServiceShowcase() {
     const goNext = useCallback(() => {
         setDirection(1);
         setCurrent((prev) => (prev + 1) % showcaseServices.length);
-        setProgress(0);
     }, []);
 
     const goPrev = useCallback(() => {
@@ -63,31 +59,13 @@ export default function SkinServiceShowcase() {
             (prev) =>
                 (prev - 1 + showcaseServices.length) % showcaseServices.length
         );
-        setProgress(0);
     }, []);
 
-    // Progress bar + auto-advance
+    // Auto-advance only (progress bar is now pure CSS)
     useEffect(() => {
-        if (isPaused) {
-            if (progressInterval.current) clearInterval(progressInterval.current);
-            return;
-        }
-
-        const tick = 30; // ms per frame
-        progressInterval.current = setInterval(() => {
-            setProgress((prev) => {
-                const next = prev + (tick / AUTOPLAY_INTERVAL) * 100;
-                if (next >= 100) {
-                    goNext();
-                    return 0;
-                }
-                return next;
-            });
-        }, tick);
-
-        return () => {
-            if (progressInterval.current) clearInterval(progressInterval.current);
-        };
+        if (isPaused) return;
+        const timer = setInterval(goNext, AUTOPLAY_INTERVAL);
+        return () => clearInterval(timer);
     }, [isPaused, goNext]);
 
     // Keyboard navigation
@@ -273,22 +251,18 @@ export default function SkinServiceShowcase() {
                                     {service.description}
                                 </motion.p>
 
-                                {/* Progress bar */}
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className="mt-5 h-[2px] w-full max-w-xs bg-white/10 rounded-full overflow-hidden"
-                                >
+                                {/* Progress bar — pure CSS animation */}
+                                <div className="mt-5 h-[2px] w-full max-w-xs bg-white/10 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full rounded-full transition-none"
+                                        key={`progress-main-${current}`}
+                                        className="h-full rounded-full"
                                         style={{
-                                            width: `${progress}%`,
-                                            background:
-                                                "linear-gradient(90deg, hsl(40 47% 56%), hsl(344 64% 50%))",
+                                            background: "linear-gradient(90deg, hsl(40 47% 56%), hsl(344 64% 50%))",
+                                            animation: isPaused ? 'none' : `progressFill ${AUTOPLAY_INTERVAL}ms linear forwards`,
+                                            width: isPaused ? undefined : '0%',
                                         }}
                                     />
-                                </motion.div>
+                                </div>
                             </div>
                         </motion.div>
                     </AnimatePresence>
@@ -351,15 +325,16 @@ export default function SkinServiceShowcase() {
                                     {svc.title}
                                 </span>
 
-                                {/* Active progress indicator */}
+                                {/* Active progress indicator — pure CSS animation */}
                                 {isActive && (
                                     <div className="w-full h-[2px] bg-foreground/5 rounded-full overflow-hidden mt-1.5">
                                         <div
-                                            className="h-full rounded-full transition-none"
+                                            key={`progress-thumb-${current}`}
+                                            className="h-full rounded-full"
                                             style={{
-                                                width: `${progress}%`,
-                                                background:
-                                                    "linear-gradient(90deg, hsl(40 47% 56%), hsl(344 64% 50%))",
+                                                background: "linear-gradient(90deg, hsl(40 47% 56%), hsl(344 64% 50%))",
+                                                animation: isPaused ? 'none' : `progressFill ${AUTOPLAY_INTERVAL}ms linear forwards`,
+                                                width: isPaused ? undefined : '0%',
                                             }}
                                         />
                                     </div>

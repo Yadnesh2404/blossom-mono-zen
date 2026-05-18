@@ -8,7 +8,7 @@ export const heroImages = {
     textColor: 'text-white' as const
   },
   skin: {
-    image: 'images/hero/skin.jpg',
+    image: '/images/hero/skin.jpg',
     title: 'LUXURY SKIN & BEAUTY CARE',
     description: 'Premium facials, glow care and luxury skin services in Andheri West, Mumbai.',
     overlay: 'rgba(0, 0, 0, 0.45)' as const,
@@ -46,7 +46,7 @@ export const servicePageImages: Record<keyof typeof heroImages, { image: string;
   },
   skin: {
     ...heroImages.skin,
-    image: '/images/services/SKIN/skin_hero.png',
+    // TODO: Replace with '/images/services/SKIN/skin_hero.png' when available
   },
   nails: {
     ...heroImages.nails,
