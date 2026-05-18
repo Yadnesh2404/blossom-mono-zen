@@ -149,7 +149,6 @@ export default function BlossomMoments() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [centerChildIndex, setCenterChildIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isGlobalMuted, setIsGlobalMuted] = useState(true);
   const lastScrollTime = useRef<number>(0);
 
@@ -243,7 +242,7 @@ export default function BlossomMoments() {
 
   const handleCycleComplete = useCallback((idx: number) => {
     const el = scrollRef.current;
-    if (!el || isPaused) return;
+    if (!el) return;
 
     // Cooldown of 1s between automatic advances to prevent accidental rapid double-scrolling
     const now = Date.now();
@@ -259,7 +258,7 @@ export default function BlossomMoments() {
       el.scrollTo({ left: scrollPos, behavior: "smooth" });
       lastScrollTime.current = Date.now();
     }
-  }, [isPaused, getCenterIdx]);
+  }, [getCenterIdx]);
 
   const scrollTo = (targetOriginalIdx: number) => {
     const el = scrollRef.current;
@@ -321,10 +320,6 @@ export default function BlossomMoments() {
           transition={{ duration: 0.5, delay: 0.12 }}
           viewport={{ once: true }}
           className="relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onTouchStart={() => setIsPaused(true)}
-          onTouchEnd={() => setIsPaused(false)}
         >
           <div
             ref={scrollRef}
