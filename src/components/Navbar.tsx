@@ -71,7 +71,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 bg-background/95 ${isMobile ? '' : 'backdrop-blur-md'}`}
+      className={`fixed top-0 w-full z-50 bg-background/95 ${isMobile ? '' : 'backdrop-blur-md'}`}
       style={{ borderBottom: '1px solid hsl(30 15% 82% / 0.6)' }}
     >
       <div className="brand-divider"></div>
