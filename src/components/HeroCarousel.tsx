@@ -169,7 +169,7 @@ const HeroCarousel = () => {
                 <div className="text-center flex flex-col items-center">
                   <Link
                     to={slide.link || '#'}
-                    className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-6 py-2.5 sm:px-8 sm:py-3.5 text-[0.8rem] sm:text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105"
+                    className="inline-flex items-center justify-center bg-brand-rose hover:bg-brand-rose/90 text-white px-6 py-2.5 sm:px-8 sm:py-3.5 text-[0.8rem] sm:text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105"
                   >
                     <span className="flex items-center gap-2">
                       <span>

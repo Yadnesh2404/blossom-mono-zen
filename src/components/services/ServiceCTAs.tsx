@@ -18,7 +18,7 @@ export const ServiceCTAs = ({ onViewServices, onBookNow, variant = 'default', cl
       className={`mt-2 flex flex-wrap justify-center gap-4 ${className}`}
     >
       <Button
-        className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase"
+        className="inline-flex items-center justify-center bg-brand-rose hover:bg-brand-rose/90 text-white hover:text-white px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 h-auto uppercase"
         onClick={onBookNow}
       >
         <span className="flex items-center gap-2">
@@ -35,7 +35,7 @@ export const ServiceCTAs = ({ onViewServices, onBookNow, variant = 'default', cl
 export const ConsultationCTA = ({ onBookConsultation }: { onBookConsultation: () => void }) => {
   return (
     <Button
-      className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 hover:text-[#1A1A1A] h-auto uppercase mt-2"
+      className="inline-flex items-center justify-center bg-brand-rose hover:bg-brand-rose/90 text-white hover:text-white px-8 py-3.5 text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105 border-0 h-auto uppercase mt-2"
       onClick={onBookConsultation}
     >
       <span className="flex items-center gap-2">
