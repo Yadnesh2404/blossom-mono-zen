@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight, Calendar } from "lucide-react";
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
 import { useIsMobile } from "../hooks/use-mobile";
 
@@ -70,8 +70,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav 
-      className={`sticky top-0 z-50 bg-background/95 ${isOpen ? 'md:backdrop-blur-md' : 'backdrop-blur-md'}`} 
+    <nav
+      className={`sticky top-0 z-50 bg-background/95 ${isMobile ? '' : 'backdrop-blur-md'}`}
       style={{ borderBottom: '1px solid hsl(30 15% 82% / 0.6)' }}
     >
       <div className="brand-divider"></div>
@@ -171,18 +171,14 @@ const Navbar = () => {
 
           {/* Mobile Menu Button - Only show on mobile */}
           <button
-            onClick={(e) => {
-              if (e.defaultPrevented) return;
-              setIsOpen(!isOpen);
-            }}
-            onTouchStart={(e) => {
-              e.preventDefault();
-              setIsOpen(!isOpen);
-            }}
-            className="md:hidden p-2 -mr-2 touch-manipulation"
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 -mr-2 touch-manipulation active:scale-95"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
-            style={{ touchAction: 'manipulation' }}
+            style={{
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent'
+            }}
           >
             {isOpen ? (
               <X className="h-6 w-6" aria-hidden="true" />
@@ -196,131 +192,121 @@ const Navbar = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
               className="md:hidden overflow-hidden touch-manipulation"
-              style={{ 
+              style={{
                 touchAction: 'manipulation',
-                willChange: 'height, opacity',
                 transform: 'translateZ(0)'
               }}
             >
               <div className="brand-divider"></div>
               <div className="py-6 px-6 space-y-1">
                 {/* ABOUT */}
-                <motion.button
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.02, duration: 0.15 }}
+                <button
                   onClick={() => handleNavClick("about")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation"
-                  style={{ touchAction: 'manipulation' }}
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                  style={{
+                    touchAction: 'manipulation',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
                 >
                   ABOUT
-                </motion.button>
+                </button>
 
                 {/* SERVICES — Accordion */}
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04, duration: 0.15 }}
+                <div
                   className="border-b border-foreground/5 touch-manipulation"
                   style={{ touchAction: 'manipulation' }}
                 >
                   <button
                     onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                    className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors touch-manipulation"
-                    style={{ touchAction: 'manipulation' }}
+                    className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                    style={{
+                      touchAction: 'manipulation',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
                   >
                     SERVICES
-                    <motion.div
-                      animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
-                      transition={{ duration: 0.15 }}
-                    >
-                      <ChevronDown className="w-4 h-4" />
-                    </motion.div>
+                    <ChevronDown
+                      className="w-4 h-4 transition-transform duration-150"
+                      style={{
+                        transform: mobileServicesOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                      }}
+                    />
                   </button>
                   <AnimatePresence>
                     {mobileServicesOpen && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.15 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.12 }}
                         className="overflow-hidden touch-manipulation"
-                        style={{ 
-                          touchAction: 'manipulation',
-                          willChange: 'height, opacity'
-                        }}
+                        style={{ touchAction: 'manipulation' }}
                       >
                         <div className="pl-4 pb-3 space-y-1">
-                          {serviceLinks.map((link, i) => (
-                            <motion.div
+                          {serviceLinks.map((link) => (
+                            <Link
                               key={link.path}
-                              initial={{ opacity: 0, x: -5 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: i * 0.02, duration: 0.12 }}
+                              to={link.path}
+                              onClick={() => setIsOpen(false)}
+                              className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                              style={{
+                                touchAction: 'manipulation',
+                                WebkitTapHighlightColor: 'transparent'
+                              }}
                             >
-                              <Link
-                                to={link.path}
-                                onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors touch-manipulation"
-                                style={{ touchAction: 'manipulation' }}
-                              >
-                                <span className="w-4 h-[1px] bg-brand-gold/50"></span>
-                                {link.name}
-                              </Link>
-                            </motion.div>
+                              <span className="w-4 h-[1px] bg-brand-gold/50"></span>
+                              {link.name}
+                            </Link>
                           ))}
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
 
                 {/* TESTIMONIALS */}
-                <motion.button
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.06, duration: 0.15 }}
+                <button
                   onClick={() => handleNavClick("testimonials")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation"
-                  style={{ touchAction: 'manipulation' }}
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                  style={{
+                    touchAction: 'manipulation',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
                 >
                   TESTIMONIALS
-                </motion.button>
+                </button>
 
                 {/* CONTACT */}
-                <motion.button
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.08, duration: 0.15 }}
+                <button
                   onClick={() => handleNavClick("contact")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation"
-                  style={{ touchAction: 'manipulation' }}
+                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                  style={{
+                    touchAction: 'manipulation',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
                 >
                   CONTACT
-                </motion.button>
+                </button>
 
                 {/* BOOK NOW CTA */}
-                <motion.div
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.15 }}
-                  className="pt-4 touch-manipulation"
-                  style={{ touchAction: 'manipulation' }}
-                >
+                <div className="pt-4 touch-manipulation" style={{ touchAction: 'manipulation' }}>
                   <button
                     onClick={() => handleNavClick("contact")}
-                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 rounded-full touch-manipulation"
-                    style={{ touchAction: 'manipulation' }}
+                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 active:bg-brand-rose/80 rounded-full touch-manipulation"
+                    style={{
+                      touchAction: 'manipulation',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
                   >
                     <Calendar className="w-4 h-4" />
                     BOOK NOW
                   </button>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           )}
