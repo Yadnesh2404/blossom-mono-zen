@@ -66,6 +66,7 @@ const Spa = () => {
       {/* Hero Section */}
       <ServiceHero serviceType="spa">
         <ServiceCTAs
+          title="BOOK YOUR LUXURY SPA EXPERIENCE"
           onViewServices={() => {
             const servicesSection = document.getElementById('services');
             if (servicesSection) {

@@ -38,14 +38,14 @@ export default function ServiceHero({
           }}
           aria-hidden="true"
         >
-          <div className="absolute inset-0 flex items-center justify-center pt-20 md:pt-0 pb-12 md:pb-0 overflow-y-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="absolute inset-0 flex items-end justify-center pb-24 md:pb-32 overflow-y-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1, ease: 'easeOut' }}
               className="px-6 sm:px-8 md:px-12 lg:px-16 max-w-4xl w-full mx-auto py-4 md:py-0"
             >
-              <div className="text-center flex flex-col items-center mt-[25vh] md:mt-[30vh]">
+              <div className="text-center flex flex-col items-center">
                 <div className="w-full flex justify-center">
                   {children}
                 </div>

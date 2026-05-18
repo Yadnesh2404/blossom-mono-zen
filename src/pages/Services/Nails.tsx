@@ -181,6 +181,7 @@ const Nails = () => {
       {/* Hero Section */}
       <ServiceHero serviceType="nails">
         <ServiceCTAs
+          title="BOOK YOUR LUXURY NAIL EXPERIENCE"
           onViewServices={() => {
             const servicesSection = document.getElementById('services');
             if (servicesSection) {

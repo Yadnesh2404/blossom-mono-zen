@@ -260,6 +260,7 @@ const Hair = () => {
       {/* Hero Section */}
       <ServiceHero serviceType="hair">
         <ServiceCTAs
+          title="BOOK YOUR LUXURY HAIR EXPERIENCE"
           onViewServices={() => {
             const servicesSection = document.getElementById('services');
             if (servicesSection) {

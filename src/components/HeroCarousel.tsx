@@ -159,24 +159,21 @@ const HeroCarousel = () => {
               className="absolute inset-0 w-full h-full object-cover object-[center_20%] md:object-center"
             />
 
-            <div className="absolute inset-0 flex items-center justify-center pb-12 md:pb-0 overflow-y-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="absolute inset-0 flex items-end justify-center pb-24 md:pb-32 overflow-y-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1, ease: 'easeOut' }}
-                className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-4xl w-full my-auto py-4 md:py-0"
+                className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-4xl w-full py-4 md:py-0"
               >
-                <div className="text-center flex flex-col items-center mt-[25vh] md:mt-[30vh]">
+                <div className="text-center flex flex-col items-center">
                   <Link
                     to={slide.link || '#'}
                     className="inline-flex items-center justify-center bg-gradient-to-r from-[#b89552] via-[#d4b977] to-[#b89552] hover:bg-gradient-to-br text-[#1A1A1A] px-6 py-2.5 sm:px-8 sm:py-3.5 text-[0.8rem] sm:text-[0.9rem] font-semibold tracking-wider transition-all duration-300 shadow-md rounded-sm transform hover:scale-105"
                   >
                     <span className="flex items-center gap-2">
-                      <span className="hidden sm:inline">
+                      <span>
                         {slide.link === "/services/makeup" ? "BOOK YOUR LUXURY MAKEUP EXPERIENCE" : slide.link === "/services/hair" ? "BOOK YOUR LUXURY HAIR EXPERIENCE" : slide.link === "/services/nails" ? "BOOK YOUR LUXURY NAIL EXPERIENCE" : slide.link === "/services/skin" ? "BOOK YOUR LUXURY SKIN EXPERIENCE" : "BOOK YOUR LUXURY SPA EXPERIENCE"}
-                      </span>
-                      <span className="sm:hidden">
-                        BOOK NOW
                       </span>
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                     </span>

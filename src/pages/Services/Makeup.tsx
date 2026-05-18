@@ -42,6 +42,7 @@ const Makeup = () => {
       {/* Hero Section */}
       <ServiceHero serviceType="makeup">
         <ServiceCTAs
+          title="BOOK YOUR LUXURY MAKEUP EXPERIENCE"
           onViewServices={() => {
             const servicesSection = document.getElementById('services');
             if (servicesSection) {
