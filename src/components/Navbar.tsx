@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const isHome = location.pathname === "/";
 
@@ -52,14 +53,12 @@ const Navbar = () => {
   };
 
   const handleNavClick = (sectionId: string) => {
+    setIsOpen(false);
+    setMobileServicesOpen(false);
+    document.body.style.overflow = 'unset';
     if (!isHome) {
-      setIsOpen(false);
-      window.location.href = `/#${sectionId}`;
+      navigate(`/#${sectionId}`);
     } else {
-      // Close menu first, then scroll after overflow is restored
-      setIsOpen(false);
-      setMobileServicesOpen(false);
-      document.body.style.overflow = 'unset';
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -160,9 +159,9 @@ const Navbar = () => {
             </button>
 
             <button
-              onClick={() => handleNavClick("contact")}
+              onClick={() => window.open("https://wa.me/918928012246", "_blank")}
               className="flex items-center ml-6 bg-brand-rose text-white hover:bg-brand-rose/90 transition-all duration-300 h-10 px-5 py-2 text-sm font-medium tracking-wider rounded-full shadow-sm hover:shadow-md"
-              aria-label="Book an appointment"
+              aria-label="Book an appointment on WhatsApp"
             >
               <Calendar className="w-4 h-4 mr-2" />
               BOOK NOW
@@ -189,128 +188,118 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              className="md:hidden overflow-hidden touch-manipulation"
-              style={{
-                touchAction: 'manipulation',
-                transform: 'translateZ(0)'
-              }}
-            >
-              <div className="brand-divider"></div>
-              <div className="py-6 px-6 space-y-1">
-                {/* ABOUT */}
+        {isOpen && (
+          <div
+            className="md:hidden overflow-hidden touch-manipulation"
+            style={{
+              touchAction: 'manipulation',
+            }}
+          >
+            <div className="brand-divider"></div>
+            <div className="py-6 px-6 space-y-1">
+              {/* ABOUT */}
+              <button
+                onClick={() => handleNavClick("about")}
+                className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                style={{
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent'
+                }}
+              >
+                ABOUT
+              </button>
+
+              {/* SERVICES — Accordion */}
+              <div
+                className="border-b border-foreground/5 touch-manipulation"
+                style={{ touchAction: 'manipulation' }}
+              >
                 <button
-                  onClick={() => handleNavClick("about")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                  className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
                   style={{
                     touchAction: 'manipulation',
                     WebkitTapHighlightColor: 'transparent'
                   }}
                 >
-                  ABOUT
-                </button>
-
-                {/* SERVICES — Accordion */}
-                <div
-                  className="border-b border-foreground/5 touch-manipulation"
-                  style={{ touchAction: 'manipulation' }}
-                >
-                  <button
-                    onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                    className="flex items-center justify-between w-full py-3 text-base font-heading font-semibold tracking-wider uppercase hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                  SERVICES
+                  <ChevronDown
+                    className="w-4 h-4 transition-transform duration-150"
                     style={{
-                      touchAction: 'manipulation',
-                      WebkitTapHighlightColor: 'transparent'
+                      transform: mobileServicesOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                     }}
-                  >
-                    SERVICES
-                    <ChevronDown
-                      className="w-4 h-4 transition-transform duration-150"
-                      style={{
-                        transform: mobileServicesOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                      }}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {mobileServicesOpen && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.12 }}
-                        className="overflow-hidden touch-manipulation"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        <div className="pl-4 pb-3 space-y-1">
-                          {serviceLinks.map((link) => (
-                            <Link
-                              key={link.path}
-                              to={link.path}
-                              onClick={() => setIsOpen(false)}
-                              className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
-                              style={{
-                                touchAction: 'manipulation',
-                                WebkitTapHighlightColor: 'transparent'
-                              }}
-                            >
-                              <span className="w-4 h-[1px] bg-brand-gold/50"></span>
-                              {link.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* TESTIMONIALS */}
-                <button
-                  onClick={() => handleNavClick("blossom-moments")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
-                  style={{
-                    touchAction: 'manipulation',
-                    WebkitTapHighlightColor: 'transparent'
-                  }}
-                >
-                  TESTIMONIALS
+                  />
                 </button>
-
-                {/* CONTACT */}
-                <button
-                  onClick={() => handleNavClick("contact")}
-                  className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
-                  style={{
-                    touchAction: 'manipulation',
-                    WebkitTapHighlightColor: 'transparent'
-                  }}
-                >
-                  CONTACT
-                </button>
-
-                {/* BOOK NOW CTA */}
-                <div className="pt-4 touch-manipulation" style={{ touchAction: 'manipulation' }}>
-                  <button
-                    onClick={() => handleNavClick("contact")}
-                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 active:bg-brand-rose/80 rounded-full touch-manipulation"
-                    style={{
-                      touchAction: 'manipulation',
-                      WebkitTapHighlightColor: 'transparent'
-                    }}
+                {mobileServicesOpen && (
+                  <div
+                    className="overflow-hidden touch-manipulation"
+                    style={{ touchAction: 'manipulation' }}
                   >
-                    <Calendar className="w-4 h-4" />
-                    BOOK NOW
-                  </button>
-                </div>
+                    <div className="pl-4 pb-3 space-y-1">
+                      {serviceLinks.map((link) => (
+                        <Link
+                          key={link.path}
+                          to={link.path}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-2 py-2.5 text-sm font-medium text-foreground/60 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                          style={{
+                            touchAction: 'manipulation',
+                            WebkitTapHighlightColor: 'transparent'
+                          }}
+                        >
+                          <span className="w-4 h-[1px] bg-brand-gold/50"></span>
+                          {link.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+
+              {/* TESTIMONIALS */}
+              <button
+                onClick={() => handleNavClick("blossom-moments")}
+                className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                style={{
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent'
+                }}
+              >
+                TESTIMONIALS
+              </button>
+
+              {/* CONTACT */}
+              <button
+                onClick={() => handleNavClick("contact")}
+                className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
+                style={{
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent'
+                }}
+              >
+                CONTACT
+              </button>
+
+              {/* BOOK NOW CTA */}
+              <div className="pt-4 touch-manipulation" style={{ touchAction: 'manipulation' }}>
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.open("https://wa.me/918928012246", "_blank");
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-rose text-white text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-brand-rose/90 active:bg-brand-rose/80 rounded-full touch-manipulation"
+                  style={{
+                    touchAction: 'manipulation',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
+                >
+                  <Calendar className="w-4 h-4" />
+                  BOOK NOW
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
