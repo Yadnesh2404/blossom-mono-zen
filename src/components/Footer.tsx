@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Twitter, MapPin, Phone, Clock } from "lucide-react";
+import { Instagram, Facebook, Youtube, MapPin, Phone, Clock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -112,6 +112,9 @@ const Footer = () => {
               </a>
               <a href="https://www.facebook.com/blossomsalonandheri/" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-brand-gold transition-colors duration-300">
                 <Facebook className="w-5 h-5" />
+              </a>
+              <a href="https://www.youtube.com/@BlossomSalonAndheriwest" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-brand-gold transition-colors duration-300">
+                <Youtube className="w-5 h-5" />
               </a>
             </div>
             <p className="text-sm text-white/50">
