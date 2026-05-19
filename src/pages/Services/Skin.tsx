@@ -297,7 +297,7 @@ const Skin = () => {
               >
                 <div className="relative rounded-2xl overflow-hidden shadow-xl border border-brand-gold/15">
                   <img
-                    src="/images/services/SKIN/luxury glow rituals.png"
+                    src="/images/services/SKIN/luxury glow rituals.jpg"
                     alt="Luxury Glow Rituals at Blossom Salon"
                     className="w-full h-auto block object-contain"
                     loading="lazy"

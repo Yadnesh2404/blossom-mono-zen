@@ -71,7 +71,16 @@ const Home = () => {
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.phone.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter your phone number",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       toast({
         title: "Error",
         description: "Please enter a valid email address",
@@ -90,9 +99,26 @@ const Home = () => {
     }
 
     try {
-      // Here you would typically make an API call to submit the form
-      // For now, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Show sending feedback
+      toast({
+        title: "Sending Message...",
+        description: "Please wait while we submit your request.",
+      });
+
+      await fetch("https://script.google.com/macros/s/AKfycbxxmrY26wbZatnarezvp_LtMzZVuoVeEQ91r7TF50fe5tvyXxRRnYJCSmiZdOaWqQpr/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          service: formData.service || "",
+          message: formData.message,
+        }),
+      });
 
       toast({
         title: "Message Sent",
@@ -101,7 +127,6 @@ const Home = () => {
 
       // Reset form
       setFormData({ name: "", email: "", phone: "", service: "", message: "" });
-
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
@@ -350,6 +375,7 @@ const Home = () => {
                         value={formData.name}
                         onChange={handleChange}
                         className="h-12 pl-10 border-foreground/10 focus:border-brand-gold focus:ring-brand-gold/20 input-luxury rounded-lg"
+                        required
                       />
                     </div>
                     <div className="relative">
@@ -361,6 +387,7 @@ const Home = () => {
                         value={formData.phone || ''}
                         onChange={handleChange}
                         className="h-12 pl-10 border-foreground/10 focus:border-brand-gold focus:ring-brand-gold/20 input-luxury rounded-lg"
+                        required
                       />
                     </div>
                   </div>
@@ -404,6 +431,7 @@ const Home = () => {
                       onChange={handleChange}
                       rows={5}
                       className="border-foreground/10 focus:border-brand-gold focus:ring-brand-gold/20 resize-none input-luxury rounded-lg p-4"
+                      required
                     />
                   </div>
                   <Button
