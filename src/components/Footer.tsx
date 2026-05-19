@@ -1,16 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Instagram, Facebook, Youtube, MapPin, Phone, Clock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const handleNavClick = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleNavClick = (targetPath: string, sectionId: string) => {
+    if (location.pathname === targetPath) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     } else {
-      navigate(`/#${sectionId}`);
+      navigate(targetPath);
     }
   };
 
@@ -123,7 +126,7 @@ const Footer = () => {
             </p>
             <div className="mt-4 md:mt-0">
               <button
-                onClick={() => handleNavClick("contact")}
+                onClick={() => handleNavClick("/contact", "contact")}
                 className="px-6 py-2.5 text-sm font-medium tracking-wider uppercase border border-brand-gold/30 rounded-full text-white/80 hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300"
               >
                 Book an Appointment

@@ -52,19 +52,34 @@ const Navbar = () => {
     }
   };
 
-  const handleNavClick = (sectionId: string) => {
+  const handleNavClick = (targetPath: string, sectionId?: string) => {
     setIsOpen(false);
     setMobileServicesOpen(false);
     document.body.style.overflow = 'unset';
-    if (!isHome) {
-      navigate(`/#${sectionId}`);
-    } else {
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
+
+    if (targetPath.startsWith("/#")) {
+      const hashId = targetPath.substring(2);
+      if (location.pathname === "/") {
+        const element = document.getElementById(hashId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      }, 50);
+      } else {
+        navigate(targetPath);
+      }
+    } else {
+      if (location.pathname === targetPath) {
+        if (sectionId) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } else {
+        navigate(targetPath);
+      }
     }
   };
 
@@ -136,7 +151,7 @@ const Navbar = () => {
             </div>
 
             <button
-              onClick={() => handleNavClick("about")}
+              onClick={() => handleNavClick("/about", "about")}
               className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
               aria-label="About"
             >
@@ -144,7 +159,7 @@ const Navbar = () => {
             </button>
 
             <button
-              onClick={() => handleNavClick("blossom-moments")}
+              onClick={() => handleNavClick("/#blossom-moments")}
               className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
               aria-label="Testimonials"
             >
@@ -152,7 +167,7 @@ const Navbar = () => {
             </button>
 
             <button
-              onClick={() => handleNavClick("contact")}
+              onClick={() => handleNavClick("/contact", "contact")}
               className="link-underline text-sm font-medium opacity-60 hover:opacity-100"
             >
               CONTACT
@@ -199,7 +214,7 @@ const Navbar = () => {
             <div className="py-6 px-6 space-y-1">
               {/* ABOUT */}
               <button
-                onClick={() => handleNavClick("about")}
+                onClick={() => handleNavClick("/about", "about")}
                 className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
                 style={{
                   touchAction: 'manipulation',
@@ -258,7 +273,7 @@ const Navbar = () => {
 
               {/* TESTIMONIALS */}
               <button
-                onClick={() => handleNavClick("blossom-moments")}
+                onClick={() => handleNavClick("/#blossom-moments")}
                 className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
                 style={{
                   touchAction: 'manipulation',
@@ -270,7 +285,7 @@ const Navbar = () => {
 
               {/* CONTACT */}
               <button
-                onClick={() => handleNavClick("contact")}
+                onClick={() => handleNavClick("/contact", "contact")}
                 className="block w-full text-left py-3 text-base font-heading font-semibold tracking-wider uppercase border-b border-foreground/5 hover:text-brand-gold transition-colors touch-manipulation active:text-brand-gold"
                 style={{
                   touchAction: 'manipulation',

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
 import ServiceHero from "@/components/services/ServiceHero";
 import { ServiceCTAs } from "@/components/services/ServiceCTAs";
@@ -185,6 +186,7 @@ const skinServices = [
 ];
 
 const Skin = () => {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
@@ -198,7 +200,7 @@ const Skin = () => {
             }
           }}
           onBookNow={() => {
-            window.location.href = '/#contact';
+            navigate('/contact');
           }}
         />
       </ServiceHero>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
 import ServiceHero from "@/components/services/ServiceHero";
 import { ServiceCTAs } from "@/components/services/ServiceCTAs";
@@ -176,6 +177,7 @@ const nailServices = [
 ];
 
 const Nails = () => {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
@@ -189,7 +191,7 @@ const Nails = () => {
             }
           }}
           onBookNow={() => {
-            window.location.href = '/#contact';
+            navigate('/contact');
           }}
         />
       </ServiceHero>

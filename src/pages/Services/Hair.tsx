@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import PremiumServiceTable from "@/components/services/PremiumServiceTable";
 import ServiceHero from "@/components/services/ServiceHero";
 import { ServiceCTAs } from "@/components/services/ServiceCTAs";
@@ -180,6 +181,7 @@ const hairServices = [
 ];
 
 const Hair = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -193,7 +195,7 @@ const Hair = () => {
             }
           }}
           onBookNow={() => {
-            window.location.href = '/#contact';
+            navigate('/contact');
           }}
         />
       </ServiceHero>
